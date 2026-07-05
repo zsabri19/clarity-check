@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClarityOS · Clarity Scorecard</title>
+  <meta name="description" content="A short scorecard that shows where work is slowing down in your business.">
+  <style>
+    :root {
+      --bg: #090c12;
+      --panel: rgba(255,255,255,0.04);
+      --panel-strong: rgba(255,255,255,0.07);
+      --text: #eef2f7;
+      --muted: #a8b0bf;
+      --line: rgba(255,255,255,0.1);
+      --gold: #d7b26a;
+      --gold-soft: #f0ddb0;
+      --green: #6fca83;
+      --red: #f07575;
+      --max: 1080px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font: 16px/1.65 Georgia, "Times New Roman", serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(215,178,106,0.16), transparent 28%),
+        radial-gradient(circle at 80% 20%, rgba(96,126,191,0.12), transparent 22%),
+        linear-gradient(180deg, #0d1118 0%, #090c12 100%);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+    button, input { font: inherit; }
+
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 0 0;
+      color: var(--muted);
+      font: 600 12px/1 Arial, sans-serif;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .topbar a {
+      color: var(--gold-soft);
+      text-decoration: none;
+    }
+
+    .hero {
+      padding: 4rem 0 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -10% -10% auto auto;
+      width: 30rem;
+      height: 30rem;
+      background: radial-gradient(circle, rgba(215,178,106,0.12), transparent 68%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.8rem;
+      border: 1px solid rgba(215,178,106,0.22);
+      border-radius: 999px;
+      background: rgba(215,178,106,0.06);
+      color: var(--gold-soft);
+      font: 600 11px/1 Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 1.4rem;
+    }
+
+    h1, h2, h3, h4 {
+      margin: 0;
+      line-height: 1.08;
+      font-weight: 700;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.6rem, 7vw, 4.8rem);
+      max-width: 12ch;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .hero h1 .accent { color: var(--gold); }
+
+    .hero p.lead {
+      max-width: 720px;
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      color: #d5dbe5;
+      margin: 0 0 1.5rem;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 0 0 2rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.55rem 0.85rem;
+      background: rgba(255,255,255,0.03);
+      color: var(--muted);
+      font: 500 12px/1 Arial, sans-serif;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 1.5rem;
+      align-items: stretch;
+      margin-top: 1.5rem;
+    }
+
+    .hero-card,
+    .panel,
+    .gate-card,
+    .result-card,
+    .report-card,
+    .cta-card {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      box-shadow: 0 30px 80px rgba(0,0,0,0.24);
+    }
+
+    .hero-card {
+      padding: 1.5rem;
+      min-height: 100%;
+    }
+
+    .hero-card h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .hero-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .hero-card li {
+      position: relative;
+      padding-left: 1.4rem;
+      margin-bottom: 0.85rem;
+      color: var(--muted);
+    }
+
+    .hero-card li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+    }
+
+    .metric {
+      padding: 1rem 1.1rem;
+      border-radius: 18px;
+      background: rgba(215,178,106,0.08);
+      border: 1px solid rgba(215,178,106,0.16);
+      margin-bottom: 0.9rem;
+    }
+
+    .metric strong {
+      display: block;
+      font: 700 13px/1.2 Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--gold-soft);
+      margin-bottom: 0.4rem;
+    }
+
+    .metric span {
+      color: #f4f6fa;
+    }
+
+    .assessment {
+      padding: 2.8rem 0 1rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.7rem, 3.5vw, 2.5rem);
+      color: #fff;
+    }
+
+    .section-header p {
+      max-width: 520px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .assessment-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .panel {
+      padding: 1.2rem 1.2rem 1rem;
+    }
+
+    .panel h3 {
+      font-size: 1.08rem;
+      color: #fff;
+      margin-bottom: 0.35rem;
+    }
+
+    .panel p {
+      color: var(--muted);
+      margin: 0 0 0.9rem;
+      font-size: 0.93rem;
+    }
+
+    .choices {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.5rem;
+    }
+
+    .choice {
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      color: #d9dfeb;
+      border-radius: 14px;
+      padding: 0.72rem 0.35rem;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+      font: 600 12px/1.15 Arial, sans-serif;
+    }
+
+    .choice span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 0.25rem;
+      font-weight: 500;
+    }
+
+    .choice:hover {
+      transform: translateY(-1px);
+      border-color: rgba(215,178,106,0.35);
+    }
+
+    .choice.selected {
+      background: rgba(215,178,106,0.12);
+      border-color: rgba(215,178,106,0.42);
+      color: #fff;
+    }
+
+    .scorebar-wrap {
+      display: grid;
+      gap: 0.75rem;
+      margin: 1.25rem 0 0.4rem;
+    }
+
+    .scorebar {
+      height: 12px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .scorebar > div {
+      height: 100%;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--gold), #f3dfaf);
+      transition: width 0.25s ease;
+    }
+
+    .score-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      color: var(--muted);
+      font: 600 12px/1.2 Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .result-area {
+      padding: 1.25rem 0 0;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .result-card {
+      padding: 1.4rem;
+    }
+
+    .result-card h3 {
+      color: var(--gold-soft);
+      font-size: 1rem;
+      margin-bottom: 0.45rem;
+      font-family: Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .result-card .score {
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+
+    .result-card p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .calculate-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 1.2rem;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border-radius: 14px;
+      padding: 0.95rem 1.2rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+      text-decoration: none;
+      font: 700 14px/1 Arial, sans-serif;
+    }
+
+    .primary-btn {
+      background: linear-gradient(180deg, var(--gold), #b98f45);
+      color: #171008;
+      border-color: #caa75d;
+    }
+
+    .secondary-btn {
+      background: rgba(255,255,255,0.03);
+      color: #e9edf5;
+      border-color: var(--line);
+    }
+
+    .primary-btn:hover,
+    .secondary-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+    }
+
+    .primary-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .gate {
+      padding: 2rem 0 1rem;
+    }
+
+    .gate-card {
+      padding: 1.5rem;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .gate-card h2 {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+
+    .gate-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .gate-form {
+      display: grid;
+      grid-template-columns: 1.2fr auto;
+      gap: 0.75rem;
+      align-items: start;
+    }
+
+    .gate-input {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      padding: 0.95rem 1rem;
+      outline: none;
+    }
+
+    .gate-input:focus {
+      border-color: rgba(215,178,106,0.4);
+    }
+
+    .gate-status {
+      min-height: 1.3rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .gate-status.success { color: var(--green); }
+    .gate-status.error { color: var(--red); }
+
+    .full-report {
+      padding: 1.2rem 0 1rem;
+      display: none;
+    }
+
+    .report-card {
+      padding: 1.5rem;
+    }
+
+    .report-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .report-box {
+      padding: 1rem;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .report-box h4 {
+      color: #fff;
+      font-size: 0.98rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .report-box p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .cta {
+      padding: 1.8rem 0 4rem;
+    }
+
+    .cta-card {
+      padding: 1.7rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-card h2 {
+      font-size: 1.5rem;
+      color: #fff;
+      margin-bottom: 0.35rem;
+    }
+
+    .cta-card p {
+      max-width: 620px;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .footer {
+      padding: 0 0 2rem;
+      color: var(--muted);
+      font: 500 12px/1.6 Arial, sans-serif;
+      text-align: center;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .assessment-grid,
+      .report-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-header,
+      .cta-card {
+        align-items: start;
+      }
+
+      .gate-form {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        padding-top: 3rem;
+      }
+
+      .choices {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .calculate-row {
+        align-items: stretch;
+      }
+
+      .primary-btn,
+      .secondary-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <div>ClarityOS · Founder Advisory</div>
+      <a href="/">Back to the main page</a>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="container">
+      <div class="eyebrow">Free scorecard</div>
+      <h1><span class="accent">Clarity</span> Scorecard</h1>
+      <p class="lead">A 5-minute check for founders and leaders who are carrying too much, moving too fast, and still not getting clean execution. It shows where the system is slowing you down, so you can fix the structure before you chase growth.</p>
+      <div class="pill-row">
+        <div class="pill">Slow decisions</div>
+        <div class="pill">Mixed roles</div>
+        <div class="pill">Too many priorities</div>
+        <div class="pill">Same fires repeat</div>
+        <div class="pill">No clear owner</div>
+      </div>
+
+      <div class="hero-grid">
+        <div class="hero-card">
+          <h2>Why this works</h2>
+          <ul>
+            <li>It gives a score, not a lecture.</li>
+            <li>It shows where the real drag is.</li>
+            <li>It points to what to fix first.</li>
+          </ul>
+          <div class="metric">
+            <strong>What it shows</strong>
+            <span>Your main problem and how much speed it is taking away.</span>
+          </div>
+          <div class="metric">
+            <strong>What comes next</strong>
+            <span>A simple fix path, then a Mirror Call if the system needs more work.</span>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <h2>Built for</h2>
+          <ul>
+            <li>Founders who feel the business is busy, but not smooth.</li>
+            <li>Operators who keep seeing the same problems again.</li>
+            <li>Teams with too many priorities and no clear order.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="assessment">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="eyebrow" style="margin-bottom:0.9rem;">5 questions</div>
+          <h2>See what is slowing the business down.</h2>
+        </div>
+        <p>Choose the answer that feels most true right now. Do not answer for the ideal version of the business.</p>
+      </div>
+
+      <div class="assessment-grid" id="questions"></div>
+
+      <div class="calculate-row">
+        <button class="primary-btn" id="calculate-btn" type="button">See my result</button>
+        <a class="secondary-btn" href="#gate">Email me the full report</a>
+      </div>
+
+        <div class="scorebar-wrap">
+        <div class="score-meta">
+          <span>Overall read</span>
+          <span id="score-label">Not calculated yet</span>
+        </div>
+        <div class="scorebar"><div id="score-fill"></div></div>
+      </div>
+
+      <div class="result-area">
+        <div class="result-card">
+          <h3>Your result</h3>
+          <div class="score" id="score-total">--</div>
+          <p id="result-copy">Answer the five questions to see the main issue.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gate" id="sofia">
+    <div class="container">
+      <div class="gate-card">
+        <h2>Ask Sofia what this is costing you</h2>
+        <p>If the result feels close, use the live Sofia agent to read the pattern with you and decide what to fix first.</p>
+        <div class="calculate-row" style="margin-top:0;">
+          <a class="primary-btn" href="#" id="sofia-trigger">Open Sofia</a>
+          <span style="color:var(--muted); font-size:0.9rem;">The Sofia agent is live on the site.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gate" id="gate">
+    <div class="container">
+      <div class="gate-card">
+        <h2>Unlock the report</h2>
+        <p>Get the full readout, the main issue, and the first fixes to use this week.</p>
+        <form class="gate-form" id="gate-form">
+          <input class="gate-input" id="gate-name" type="text" placeholder="Your name" autocomplete="name">
+          <input class="gate-input" id="gate-email" type="email" placeholder="Work email" autocomplete="email" required>
+          <button class="primary-btn" id="gate-btn" type="submit">Unlock the report</button>
+        </form>
+        <div id="gate-status" class="gate-status"></div>
+        <p style="font-size:0.8rem; color:var(--muted);">No spam. You will get the report and one clear next step.</p>
+        <div id="download-area" class="hidden" style="margin-top:0.75rem;">
+          <a class="secondary-btn" id="download-report-btn" href="#">Download your report</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="full-report" id="full-report">
+    <div class="container">
+      <div class="report-card">
+        <div class="eyebrow" style="margin-bottom:1rem;">Unlocked report</div>
+        <h2 style="font-size: clamp(1.7rem, 3.5vw, 2.4rem); color:#fff;">Your Clarity Report</h2>
+        <p id="report-summary" style="color:var(--muted); max-width:760px;">Clear first. Growth second. The report below shows the next simple step.</p>
+        <div class="report-grid">
+          <div class="report-box">
+            <h4>What this means</h4>
+            <p id="report-meaning">You will see the main reason work is slowing down.</p>
+          </div>
+          <div class="report-box">
+            <h4>What to do first</h4>
+            <p id="report-fix">You will see the first action that can reduce the problem.</p>
+          </div>
+          <div class="report-box">
+            <h4>What not to do</h4>
+            <p id="report-warning">You will see the move that usually makes it worse.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <div class="cta-card">
+        <div>
+          <h2>If the score is high, stabilize first.</h2>
+          <p>That usually means the business needs clearer ownership, faster decisions, and simpler order before it can grow cleanly.</p>
+        </div>
+        <a class="primary-btn" href="https://buy.stripe.com/00w28q41PdjveV2bfWcV201" target="_blank" rel="noreferrer">Book a Mirror Call</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="footer">
+      Zeeshan Sabri · ClarityOS · <a href="mailto:clarityos@global-mkts.com">clarityos@global-mkts.com</a>
+    </div>
+  </div>
+
+  <script>
+    const questionsData = [
+      {
+        id: 'decision',
+        title: 'Slow decisions',
+        prompt: 'How long does it take for a decision to turn into action?',
+      },
+      {
+        id: 'roles',
+        title: 'Mixed roles',
+        prompt: 'How often is it unclear who owns the work?',
+      },
+      {
+        id: 'signals',
+        title: 'Too many priorities',
+        prompt: 'How often do people carry more priorities than they can handle?',
+      },
+      {
+        id: 'fires',
+        title: 'Same fires repeat',
+        prompt: 'How often does the same problem come back again?',
+      },
+      {
+        id: 'authority',
+        title: 'No clear owner',
+        prompt: 'How often do decisions stop because no one knows who can decide?',
+      },
+    ];
+
+    const optionLabels = [
+      'Rare',
+      'Sometimes',
+      'Often',
+      'Always',
+    ];
+
+    const leakProfiles = {
+      decision: {
+        label: 'Slow decisions',
+        meaning: 'Decisions are taking too long to move forward.',
+        fix: 'Pick one owner and one time limit for repeated decisions.',
+        warning: 'Do not add another meeting just to talk about the delay.',
+      },
+      roles: {
+        label: 'Mixed roles',
+        meaning: 'People are not clear about who owns what.',
+        fix: 'Write down who owns each repeat task.',
+        warning: 'Do not leave work in the "everyone owns it" zone.',
+      },
+      signals: {
+        label: 'Too many priorities',
+        meaning: 'People have too many things to do at the same time.',
+        fix: 'Cut one or two active priorities so the team can focus.',
+        warning: 'Do not ask people to do more when the load is already too high.',
+      },
+      fires: {
+        label: 'Same fires repeat',
+        meaning: 'The same problem keeps coming back.',
+        fix: 'Turn the repeat problem into a clear process with one owner.',
+        warning: 'Do not praise rescue work without fixing the cause.',
+      },
+      authority: {
+        label: 'No clear owner',
+        meaning: 'People do not know who has the final say.',
+        fix: 'Write a simple list of who decides what.',
+        warning: 'Do not keep decision rights in people’s heads.',
+      },
+    };
+
+    const state = Object.fromEntries(questionsData.map((q) => [q.id, null]));
+    const questionsEl = document.getElementById('questions');
+    const scoreTotalEl = document.getElementById('score-total');
+    const scoreLabelEl = document.getElementById('score-label');
+    const scoreFillEl = document.getElementById('score-fill');
+    const resultCopyEl = document.getElementById('result-copy');
+    const calculateBtn = document.getElementById('calculate-btn');
+    const gateForm = document.getElementById('gate-form');
+    const gateName = document.getElementById('gate-name');
+    const gateEmail = document.getElementById('gate-email');
+    const gateBtn = document.getElementById('gate-btn');
+    const gateStatus = document.getElementById('gate-status');
+    const downloadArea = document.getElementById('download-area');
+    const downloadReportBtn = document.getElementById('download-report-btn');
+    const fullReport = document.getElementById('full-report');
+    const reportSummary = document.getElementById('report-summary');
+    const reportMeaning = document.getElementById('report-meaning');
+    const reportFix = document.getElementById('report-fix');
+    const reportWarning = document.getElementById('report-warning');
+
+    const unlockKey = 'clarity-scorecard-unlocked';
+    let currentResult = null;
+    let latestProfile = {
+      name: '',
+      email: '',
+      summary: '',
+    };
+
+    function renderQuestions() {
+      questionsEl.innerHTML = questionsData.map((q) => `
+        <article class="panel">
+          <h3>${q.title}</h3>
+          <p>${q.prompt}</p>
+          <div class="choices" role="group" aria-label="${q.title}">
+            ${optionLabels.map((opt, index) => `
+              <button type="button" class="choice" data-question="${q.id}" data-value="${index}">
+                ${opt}
+              </button>
+            `).join('')}
+          </div>
+        </article>
+      `).join('');
+
+      questionsEl.querySelectorAll('.choice').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const question = btn.dataset.question;
+          const value = Number(btn.dataset.value);
+          state[question] = value;
+          updateSelection(question, value);
+          calculateResult();
+        });
+      });
+    }
+
+    function updateSelection(questionId, value) {
+      questionsEl.querySelectorAll(`[data-question="${questionId}"]`).forEach((btn) => {
+        btn.classList.toggle('selected', Number(btn.dataset.value) === value);
+      });
+    }
+
+    function calculateBand(score) {
+      if (score <= 4) return { label: 'Clear', copy: 'Things are mostly clear, but there is still a little friction.' };
+      if (score <= 8) return { label: 'Some risk', copy: 'The business is starting to slow down. Fix a few things now.' };
+      if (score <= 12) return { label: 'High risk', copy: 'Too much confusion is building up. The team needs a simpler way to work.' };
+      return { label: 'Urgent', copy: 'The business is losing too much speed. This needs attention now.' };
+    }
+
+    function getDominantLeak() {
+      const ranked = Object.entries(state)
+        .filter(([, value]) => value !== null)
+        .sort((a, b) => b[1] - a[1]);
+      if (!ranked.length) return 'decision';
+      return ranked[0][0];
+    }
+
+    function calculateResult() {
+      const answered = Object.values(state).filter((value) => value !== null);
+      const total = answered.reduce((sum, value) => sum + value, 0);
+      const maxScore = questionsData.length * 3;
+      const completed = answered.length === questionsData.length;
+      const dominantId = getDominantLeak();
+      const profile = leakProfiles[dominantId];
+      const band = calculateBand(total);
+      const percent = Math.round((total / maxScore) * 100);
+
+      currentResult = {
+        total,
+        maxScore,
+        percent,
+        band,
+        profile,
+      };
+
+      scoreTotalEl.textContent = band.label;
+      scoreLabelEl.textContent = band.label;
+      scoreFillEl.style.width = `${percent}%`;
+
+      if (!completed) {
+        resultCopyEl.textContent = 'Answer all five questions to see the main issue.';
+        return;
+      }
+
+      resultCopyEl.textContent = `${band.copy} Your main issue is ${profile.label.toLowerCase()}. ${profile.meaning}`;
+    }
+
+    function buildReport() {
+      const dominant = currentResult?.profile || leakProfiles.decision;
+      const band = currentResult?.band || calculateBand(0);
+      reportSummary.textContent = `Readout: ${band.label}. Main issue: ${dominant.label}. Clear first. Growth second.`;
+      reportMeaning.textContent = dominant.meaning;
+      reportFix.textContent = dominant.fix;
+      reportWarning.textContent = dominant.warning;
+    }
+
+    calculateBtn.addEventListener('click', calculateResult);
+
+    if (sessionStorage.getItem(unlockKey) === 'true') {
+      fullReport.style.display = 'block';
+    }
+
+    gateForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!currentResult) {
+        calculateResult();
+      }
+
+      if (Object.values(state).some((value) => value === null)) {
+        gateStatus.className = 'gate-status error';
+        gateStatus.textContent = 'Please answer all five questions first.';
+        return;
+      }
+
+      const email = gateEmail.value.trim();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        gateStatus.className = 'gate-status error';
+        gateStatus.textContent = 'Please enter a valid work email.';
+        return;
+      }
+
+      gateBtn.disabled = true;
+      gateBtn.textContent = 'Sending...';
+      gateStatus.className = 'gate-status';
+      gateStatus.textContent = 'Preparing your report.';
+
+      try {
+        const name = gateName.value.trim() || gateEmail.value.trim().split('@')[0];
+        const payload = {
+          name,
+          email,
+          source: 'scorecard-page',
+          score: currentResult.total,
+          scoreBand: currentResult.band.label,
+          dominantLeak: currentResult.profile.label,
+          summary: resultCopyEl.textContent,
+        };
+
+        const res = await fetch('/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          latestProfile = {
+            name,
+            email,
+            summary: resultCopyEl.textContent,
+          };
+          sessionStorage.setItem(unlockKey, 'true');
+          gateStatus.className = 'gate-status success';
+          gateStatus.textContent = 'Report sent. Your full report is ready.';
+          fullReport.style.display = 'block';
+          buildReport();
+          downloadArea.classList.remove('hidden');
+          setTimeout(() => {
+            if (downloadReportBtn) downloadReportBtn.click();
+          }, 400);
+        } else {
+          gateStatus.className = 'gate-status error';
+          gateStatus.textContent = data.error || 'Unable to send the report right now.';
+        }
+      } catch (err) {
+        gateStatus.className = 'gate-status error';
+        gateStatus.textContent = 'Network issue. Please try again or email clarityos@global-mkts.com.';
+      } finally {
+        gateBtn.disabled = false;
+        gateBtn.textContent = 'Unlock the report';
+      }
+    });
+
+    function buildPdfLines(profile) {
+      const title = 'CLARITY MIRROR';
+      const subtitle = 'Baseline Reflection & Execution Snapshot';
+      const summary = currentResult?.band?.label || 'Clear';
+      const dominant = currentResult?.profile?.label || 'Slow decisions';
+      const meaning = currentResult?.profile?.meaning || 'Decisions are taking too long to move forward.';
+      const fix = currentResult?.profile?.fix || 'Pick one owner and one time limit for repeated decisions.';
+      const warning = currentResult?.profile?.warning || 'Do not add another meeting just to talk about the delay.';
+      return [
+        { text: 'ClarityOS', size: 20, bold: true },
+        { text: title, size: 18, bold: true },
+        { text: subtitle, size: 11, bold: false },
+        { text: '', size: 10, bold: false },
+        { text: `Reflection For: ${profile.name}`, size: 12, bold: true },
+        { text: `Email: ${profile.email}`, size: 11, bold: false },
+        { text: `Overall Read: ${summary}`, size: 11, bold: false },
+        { text: `Main Issue: ${dominant}`, size: 12, bold: true },
+        { text: '', size: 10, bold: false },
+        { text: 'Executive Summary', size: 13, bold: true },
+        { text: 'This is a baseline reflection, not a performance review. It shows where clarity is breaking down and where the system needs to be simplified before growth gets heavier.', size: 11, bold: false },
+        { text: '', size: 10, bold: false },
+        { text: 'What This Means', size: 13, bold: true },
+        { text: meaning, size: 11, bold: false },
+        { text: '', size: 10, bold: false },
+        { text: 'What To Do First', size: 13, bold: true },
+        { text: fix, size: 11, bold: false },
+        { text: '', size: 10, bold: false },
+        { text: 'What Not To Do', size: 13, bold: true },
+        { text: warning, size: 11, bold: false },
+        { text: '', size: 10, bold: false },
+        { text: 'Next Step', size: 13, bold: true },
+        { text: 'Book a Mirror Call on the live Stripe checkout to turn the pattern into a clearer operating plan.', size: 11, bold: false },
+      ];
+    }
+
+    function ensureJsPDF() {
+      if (window.jspdf && window.jspdf.jsPDF) {
+        return Promise.resolve(window.jspdf.jsPDF);
+      }
+
+      return new Promise((resolve, reject) => {
+        const existing = Array.from(document.scripts).find((script) => script.src.includes('jspdf'));
+        if (existing) {
+          existing.addEventListener('load', () => resolve(window.jspdf.jsPDF), { once: true });
+          existing.addEventListener('error', reject, { once: true });
+          return;
+        }
+
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js';
+        script.onload = () => resolve(window.jspdf.jsPDF);
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
+    }
+
+    async function downloadReport() {
+      const profile = latestProfile.name && latestProfile.email ? latestProfile : {
+        name: gateName.value.trim() || gateEmail.value.trim().split('@')[0],
+        email: gateEmail.value.trim(),
+      };
+
+      const JsPDF = await ensureJsPDF().catch(() => null);
+      if (!JsPDF) {
+        gateStatus.className = 'gate-status error';
+        gateStatus.textContent = 'Download failed to load. Please try again.';
+        return;
+      }
+
+      const doc = new JsPDF({ unit: 'pt', format: 'a4' });
+      const left = 48;
+      let y = 56;
+      const maxWidth = 500;
+
+      buildPdfLines(profile).forEach((line) => {
+        if (!line.text) {
+          y += 10;
+          return;
+        }
+        doc.setFont('helvetica', line.bold ? 'bold' : 'normal');
+        doc.setFontSize(line.size);
+        const wrapped = doc.splitTextToSize(line.text, maxWidth);
+        if (y + wrapped.length * (line.size + 6) > 760) {
+          doc.addPage();
+          y = 56;
+        }
+        doc.text(wrapped, left, y);
+        y += wrapped.length * (line.size + 6);
+      });
+
+      const fileName = `ClarityOS_Mirror_Report_${profile.name.replace(/[^a-z0-9]+/gi, '_') || 'Lead'}.pdf`;
+      doc.save(fileName);
+    }
+
+    if (downloadReportBtn) {
+      downloadReportBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        await downloadReport();
+      });
+    }
+
+    const sofiaTrigger = document.getElementById('sofia-trigger');
+    if (sofiaTrigger) {
+      sofiaTrigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      });
+    }
+
+    renderQuestions();
+    calculateResult();
+    buildReport();
+  </script>
+  <script src="https://lasio.ai/widget.js?id=141&api_key=wk_3c4b2b9c733c09add3e0dace740868b6e63aae48aa2df360f71d940cace38738"></script>
+</body>
+</html>

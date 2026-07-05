@@ -3,61 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ClarityOS · Free Diagnostic — 5 Signs Your Organization Has a Clarity Problem</title>
-  <meta name="description" content="Take the free one-page diagnostic from Zeeshan Sabri. Discover if decision latency, role ambiguity, or authority confusion is blocking your organization.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <title>ClarityOS · Free Scorecard</title>
+  <meta name="description" content="Take the free Clarity Scorecard from Zeeshan Sabri. See where work is slowing down in your business.">
   <style>
     /* ── Reset & Base ── */
 :root {
-      --bg: #0a0a0f;
-      --text: #e4e4ed;
-      --text-dim: #9999bb;
-      --text-muted: #8888cc;
-      --accent: #6666cc;
-      --accent-light: #8855ee;
-      --border: rgba(136,136,204,0.15);
-      --card-bg: rgba(255,255,255,0.02);
-      --error: #ff6b6b;
-      --success: #6bcb6b;
+      --bg: #0c0f14;
+      --panel: #131924;
+      --panel2: #0f1520;
+      --text: #eef2f7;
+      --muted: #a7b0bf;
+      --line: rgba(255,255,255,.09);
+      --gold: #d6b36a;
+      --gold2: #f1ddac;
+      --max: 960px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #0a0a0f;
-      color: #e4e4ed;
-      line-height: 1.6;
+      font: 16px/1.7 Georgia, "Times New Roman", serif;
+      background: radial-gradient(circle at top, #16202f 0%, #0c0f14 42%, #090b10 100%);
+      color: var(--text);
       -webkit-font-smoothing: antialiased;
     }
 
     /* ── Typography ── */
     h1, h2, h3 { font-weight: 700; line-height: 1.2; }
     .eyebrow {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
+      color: var(--gold2);
       text-transform: uppercase;
-      color: #8888cc;
+      letter-spacing: 0.16em;
+      font: 600 12px/1.2 Arial, sans-serif;
       margin-bottom: 0.75rem;
     }
     .badge {
       display: inline-block;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
+      font: 500 12px/1.2 Arial, sans-serif;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      background: rgba(136, 136, 204, 0.12);
-      color: #8888cc;
+      background: rgba(255,255,255,0.03);
+      color: var(--muted);
       padding: 0.35rem 0.75rem;
       border-radius: 100px;
-      border: 1px solid rgba(136, 136, 204, 0.2);
+      border: 1px solid var(--line);
       margin-bottom: 1rem;
     }
 
     /* ── Container ── */
-    .container { max-width: 780px; margin: 0 auto; padding: 0 1.5rem; }
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 1.5rem; }
 
     /* ── Hero ── */
     .hero {
@@ -76,35 +69,31 @@
       left: -50%;
       width: 200%;
       height: 200%;
-      background: radial-gradient(ellipse at 30% 50%, rgba(100, 100, 200, 0.06) 0%, transparent 60%),
-                  radial-gradient(ellipse at 70% 50%, rgba(160, 120, 255, 0.04) 0%, transparent 60%);
+      background: radial-gradient(ellipse at 30% 50%, rgba(214,179,106,0.06) 0%, transparent 60%),
+                  radial-gradient(ellipse at 70% 50%, rgba(214,179,106,0.04) 0%, transparent 60%);
       pointer-events: none;
     }
     .hero-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
+      font: 500 11px/1.2 Arial, sans-serif;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: #6666aa;
+      color: var(--muted);
       margin-bottom: 1.5rem;
     }
     .hero h1 {
       font-size: clamp(2.2rem, 6vw, 3.8rem);
-      font-weight: 800;
+      line-height: 1.04;
+      font-weight: 600;
       color: #fff;
       margin-bottom: 0.5rem;
-      letter-spacing: -0.02em;
     }
     .hero .accent {
-      background: linear-gradient(135deg, #8888cc, #a078ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--gold);
     }
     .hero h2 {
       font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-      font-weight: 500;
-      color: #9999bb;
+      font-weight: 400;
+      color: #d7deea;
       margin-bottom: 2rem;
       max-width: 600px;
     }
@@ -112,21 +101,20 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: linear-gradient(135deg, #6666cc, #8855ee);
-      color: #fff;
-      font-weight: 600;
-      font-size: 1rem;
-      padding: 1rem 2rem;
-      border-radius: 12px;
+      background: linear-gradient(180deg, var(--gold), #b99347);
+      color: #14110a;
+      font: 600 14px/1 Arial, sans-serif;
+      padding: 14px 24px;
+      border-radius: 14px;
       text-decoration: none;
       transition: all 0.3s ease;
-      border: none;
+      border: 1px solid #c9a65d;
       cursor: pointer;
       width: fit-content;
     }
     .hero-cta:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(102, 102, 204, 0.35);
+      box-shadow: 0 8px 24px rgba(214,179,106,0.3);
     }
 
     /* ── Diagnostic Signs ── */
@@ -137,39 +125,37 @@
       color: #fff;
       margin-bottom: 0.75rem;
     }
-    .diagnostic-header p { color: #9999bb; font-size: 1.05rem; }
+    .diagnostic-header p { color: var(--muted); font-size: 1.05rem; }
 
     .sign {
-      background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 16px;
-      padding: 2rem 2rem 2rem 3rem;
-      margin-bottom: 1.25rem;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border-radius: 20px;
+      padding: 1.75rem 2rem 1.75rem 3.5rem;
+      margin-bottom: 1rem;
       position: relative;
       transition: border-color 0.3s ease, background 0.3s ease;
     }
     .sign:hover {
-      border-color: rgba(136, 136, 204, 0.3);
-      background: linear-gradient(135deg, rgba(136, 136, 204, 0.06) 0%, rgba(136, 136, 204, 0.02) 100%);
+      border-color: rgba(214,179,106,.3);
+      background: linear-gradient(180deg, rgba(214,179,106,.08), rgba(214,179,106,.03));
     }
     .sign-number {
       position: absolute;
-      left: 1rem;
-      top: 2rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #6666cc;
+      left: 1.25rem;
+      top: 1.75rem;
+      font: 600 12px/1.2 Arial, sans-serif;
+      color: var(--gold);
     }
     .sign h3 {
       font-size: 1.1rem;
-      font-weight: 700;
+      font-weight: 600;
       color: #fff;
       margin-bottom: 0.5rem;
     }
     .sign p {
       font-size: 0.92rem;
-      color: #aaaabb;
+      color: var(--muted);
       line-height: 1.7;
     }
 
@@ -187,19 +173,63 @@
       transform: translateX(-50%);
       width: 1px;
       height: 3rem;
-      background: linear-gradient(to bottom, transparent, rgba(136, 136, 204, 0.3));
+      background: linear-gradient(to bottom, transparent, var(--line));
     }
     .transition p {
       font-size: 1.25rem;
       font-weight: 600;
-      color: #ccccee;
+      color: var(--text);
       max-width: 550px;
       margin: 0 auto 0.5rem;
     }
     .transition .sub {
       font-size: 0.92rem;
-      color: #8888aa;
+      color: var(--muted);
       font-weight: 400;
+    }
+
+    /* ── Sofia Concierge Nudge ── */
+    .sofia-nudge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 1rem 1.5rem;
+      margin: 1rem auto;
+      max-width: 640px;
+      border: 1px solid rgba(214,179,106,.15);
+      border-radius: 100px;
+      background: rgba(214,179,106,.04);
+      font-size: 0.85rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+      text-align: center;
+    }
+    .sofia-nudge strong {
+      color: var(--gold2);
+      font-weight: 600;
+    }
+    .sofia-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, var(--gold), #b99347);
+      color: #14110a;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+    .sofia-nudge-link {
+      color: var(--gold);
+      text-decoration: none;
+      font: 600 13px/1 Arial, sans-serif;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+    .sofia-nudge-link:hover {
+      color: var(--gold2);
     }
 
     /* ── CTA Section ── */
@@ -208,11 +238,11 @@
       text-align: center;
     }
     .cta-card {
-      background: linear-gradient(135deg, rgba(102, 102, 204, 0.08) 0%, rgba(136, 136, 204, 0.04) 100%);
-      border: 1px solid rgba(136, 136, 204, 0.15);
-      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border-radius: 28px;
       padding: 3rem 2.5rem;
-      max-width: 600px;
+      max-width: 640px;
       margin: 0 auto;
     }
     .cta-card h3 {
@@ -221,7 +251,7 @@
       margin-bottom: 0.75rem;
     }
     .cta-card p {
-      color: #9999bb;
+      color: var(--muted);
       font-size: 0.95rem;
       margin-bottom: 2rem;
     }
@@ -229,64 +259,46 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: linear-gradient(135deg, #6666cc, #8855ee);
-      color: #fff;
-      font-weight: 600;
-      font-size: 1.05rem;
-      padding: 1.1rem 2.5rem;
-      border-radius: 12px;
+      background: linear-gradient(180deg, var(--gold), #b99347);
+      color: #14110a;
+      font: 600 14px/1 Arial, sans-serif;
+      padding: 14px 24px;
+      border-radius: 14px;
       text-decoration: none;
       transition: all 0.3s ease;
-      border: none;
+      border: 1px solid #c9a65d;
       cursor: pointer;
     }
     .cta-button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(102, 102, 204, 0.35);
-    }
-    .cta-button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
+      box-shadow: 0 8px 24px rgba(214,179,106,0.3);
     }
 
-    /* ── Download Form ── */
-    .download-form { margin-top: 1.5rem; }
-    .form-row {
-      display: flex;
-      gap: 0.75rem;
+    /* ── Brochure Link ── */
+    .brochure-link-wrap {
+      margin-top: 2rem;
+    }
+    .brochure-link {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
+      gap: 0.5rem;
+      background: linear-gradient(180deg, var(--gold), #b99347);
+      color: #14110a;
+      font: 600 15px/1 Arial, sans-serif;
+      padding: 16px 32px;
+      border-radius: 14px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: 1px solid #c9a65d;
     }
-    .form-input {
-      flex: 1;
-      min-width: 240px;
-      max-width: 340px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(136,136,204,0.15);
-      border-radius: 12px;
-      padding: 1rem 1.25rem;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
-      color: #e4e4ed;
-      outline: none;
-      transition: border-color 0.3s ease;
+    .brochure-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(214,179,106,0.3);
     }
-    .form-input::placeholder { color: #555577; }
-    .form-input:focus { border-color: #6666cc; }
-    .form-note {
-      font-size: 0.75rem;
-      color: #555577;
-      margin-top: 0.75rem;
+    .brochure-link .arrow {
+      font-size: 18px;
+      line-height: 1;
     }
-    .form-status {
-      font-size: 0.85rem;
-      margin-top: 0.75rem;
-      min-height: 1.5rem;
-    }
-    .form-status.success { color: #6bcb6b; }
-    .form-status.error { color: #ff6b6b; }
 
     /* ── Mirror Call Section ── */
     .mirror-section {
@@ -301,7 +313,7 @@
       transform: translateX(-50%);
       width: 1px;
       height: 3rem;
-      background: linear-gradient(to bottom, transparent, rgba(136, 136, 204, 0.3));
+      background: linear-gradient(to bottom, transparent, var(--line));
     }
     .mirror-grid {
       display: grid;
@@ -309,14 +321,13 @@
       gap: 2.5rem;
       margin-top: 2.5rem;
     }
-    .mirror-info {}
     .mirror-info h3 {
       font-size: 1.5rem;
       color: #fff;
       margin-bottom: 1rem;
     }
     .mirror-info p {
-      color: #9999bb;
+      color: var(--muted);
       font-size: 0.95rem;
       line-height: 1.7;
       margin-bottom: 1.25rem;
@@ -326,7 +337,7 @@
       padding: 0;
     }
     .mirror-info ul li {
-      color: #aaaabb;
+      color: var(--muted);
       font-size: 0.9rem;
       padding: 0.5rem 0;
       padding-left: 1.5rem;
@@ -336,14 +347,15 @@
       content: '→';
       position: absolute;
       left: 0;
-      color: #6666cc;
+      color: var(--gold);
     }
     .mirror-price {
       display: inline-block;
       font-size: 0.8rem;
       font-weight: 600;
-      color: #fff;
-      background: linear-gradient(135deg, #6666cc, #8855ee);
+      color: var(--gold2);
+      background: rgba(214,179,106,0.08);
+      border: 1px solid rgba(214,179,106,0.2);
       padding: 0.35rem 0.9rem;
       border-radius: 100px;
       margin: 0.75rem 0 1.25rem;
@@ -351,9 +363,9 @@
 
     /* ── Booking Card ── */
     .booking-card {
-      background: linear-gradient(135deg, rgba(102,102,204,0.08) 0%, rgba(136,136,204,0.04) 100%);
-      border: 1px solid rgba(136,136,204,0.15);
-      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border-radius: 28px;
       padding: 2.5rem 2rem;
     }
     .booking-card h4 {
@@ -372,20 +384,19 @@
       display: block;
       width: 100%;
       text-align: center;
-      background: linear-gradient(135deg, #6666cc, #8855ee);
-      color: #fff;
-      font-weight: 600;
-      font-size: 1.05rem;
-      padding: 1.1rem;
-      border-radius: 12px;
-      border: none;
+      background: linear-gradient(180deg, var(--gold), #b99347);
+      color: #14110a;
+      font: 600 14px/1 Arial, sans-serif;
+      padding: 14px 18px;
+      border-radius: 14px;
+      border: 1px solid #c9a65d;
       cursor: pointer;
       transition: all 0.3s ease;
       text-decoration: none;
     }
     .stripe-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(102, 102, 204, 0.35);
+      box-shadow: 0 8px 24px rgba(214,179,106,0.3);
     }
     .stripe-btn .small { display: block; font-size: 0.75rem; font-weight: 400; opacity: 0.8; margin-top: 0.25rem; }
 
@@ -395,10 +406,10 @@
     }
     .cal-input-group label {
       display: block;
-      font-size: 0.8rem;
-      color: #8888cc;
+      font-size: 0.78rem;
+      color: var(--gold2);
       margin-bottom: 0.4rem;
-      font-family: 'JetBrains Mono', monospace;
+      font: 600 11px/1.2 Arial, sans-serif;
       text-transform: uppercase;
       letter-spacing: 0.08em;
     }
@@ -406,35 +417,33 @@
     .cal-input-group select {
       width: 100%;
       background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(136,136,204,0.15);
+      border: 1px solid var(--line);
       border-radius: 10px;
       padding: 0.85rem 1rem;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
-      color: #e4e4ed;
+      font: 14px/1.4 Georgia, "Times New Roman", serif;
+      color: var(--text);
       outline: none;
       transition: border-color 0.3s ease;
     }
     .cal-input-group input:focus,
-    .cal-input-group select:focus { border-color: #6666cc; }
-    .cal-input-group select option { background: #1a1a2e; color: #e4e4ed; }
+    .cal-input-group select:focus { border-color: rgba(214,179,106,.4); }
+    .cal-input-group select option { background: var(--panel); color: var(--text); }
     .book-submit {
       width: 100%;
       text-align: center;
-      background: linear-gradient(135deg, #6666cc, #8855ee);
-      color: #fff;
-      font-weight: 600;
-      font-size: 1rem;
-      padding: 1rem;
-      border-radius: 12px;
-      border: none;
+      background: linear-gradient(180deg, var(--gold), #b99347);
+      color: #14110a;
+      font: 600 14px/1 Arial, sans-serif;
+      padding: 14px 18px;
+      border-radius: 14px;
+      border: 1px solid #c9a65d;
       cursor: pointer;
       transition: all 0.3s ease;
       margin-top: 0.5rem;
     }
     .book-submit:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(102, 102, 204, 0.35);
+      box-shadow: 0 8px 24px rgba(214,179,106,0.3);
     }
     .book-submit:disabled {
       opacity: 0.6;
@@ -449,23 +458,23 @@
     }
     .booking-status.success { color: #6bcb6b; }
     .booking-status.error { color: #ff6b6b; }
-    .booking-status.info { color: #8888cc; }
+    .booking-status.info { color: var(--muted); }
 
     /* ── Footer ── */
     footer {
       padding: 2rem 0 3rem;
       text-align: center;
-      border-top: 1px solid rgba(255,255,255,0.04);
+      border-top: 1px solid var(--line);
     }
     footer p {
       font-size: 0.8rem;
-      color: #555577;
+      color: var(--muted);
     }
     footer a {
-      color: #7777aa;
+      color: var(--muted);
       text-decoration: none;
     }
-    footer a:hover { color: #9999cc; }
+    footer a:hover { color: var(--gold2); }
 
     /* ── Animations ── */
     @keyframes fadeUp {
@@ -489,9 +498,8 @@
       .cta-card { padding: 2rem 1.5rem; }
       .hero { min-height: auto; padding: 3rem 0; }
       .mirror-grid { grid-template-columns: 1fr; }
-      .form-row { flex-direction: column; }
-      .form-input { min-width: 100%; max-width: 100%; }
       .booking-card { padding: 1.5rem; }
+      .sofia-nudge { border-radius: 16px; padding: 0.85rem 1.25rem; }
     }
   </style>
 </head>
@@ -502,16 +510,16 @@
   ════════════════════════════════════════════════ -->
   <section class="hero">
     <div class="container">
-      <div class="hero-label animate-in">Free Diagnostic</div>
-      <h1 class="animate-in delay-1">
-        <span class="accent">5 Signs</span> Your Organization<br>Has a Clarity Problem
-      </h1>
-      <h2 class="animate-in delay-2">
-        A one-page diagnostic from Zeeshan Sabri, ClarityOS
-      </h2>
-      <a href="#diagnostic" class="hero-cta animate-in delay-3">
-        Take the Diagnostic →
-      </a>
+        <div class="hero-label animate-in">Free Scorecard</div>
+        <h1 class="animate-in delay-1">
+        <span class="accent">Clarity</span> Scorecard
+        </h1>
+        <h2 class="animate-in delay-2">
+        Find where work is slowing down before it turns into more delay and confusion.
+        </h2>
+        <a href="#diagnostic" class="hero-cta animate-in delay-3">
+        Take the Scorecard →
+        </a>
     </div>
   </section>
 
@@ -521,44 +529,44 @@
   <section class="diagnostic" id="diagnostic">
     <div class="container">
       <div class="diagnostic-header">
-        <div class="badge">Diagnostic</div>
-        <h2>The 5 Signs</h2>
-        <p>Rate each one honestly. If any resonate, you already know where to start.</p>
+        <div class="badge">Scorecard</div>
+        <h2>The 5 warning signs</h2>
+        <p>Read each one. If it feels familiar, that is the one to watch.</p>
       </div>
 
       <!-- Sign 01 -->
       <div class="sign">
         <span class="sign-number">01</span>
-        <h3>Decision Latency</h3>
-        <p>How long does it take between a decision being made and action being taken? If the gap exceeds 48 hours for anything under $100K, clarity is not installed.</p>
+        <h3>Slow decisions</h3>
+        <p>How long does it take between a decision and action? If it takes too long, the business loses speed.</p>
       </div>
 
       <!-- Sign 02 -->
       <div class="sign">
         <span class="sign-number">02</span>
-        <h3>Role Ambiguity</h3>
-        <p>Ask any three people in your org: "Who owns X?" If you get three different answers, you do not have an execution problem. You have a clarity problem.</p>
+        <h3>Mixed roles</h3>
+        <p>Ask three people who owns the work. If you get different answers, the problem is not execution. It is unclear ownership.</p>
       </div>
 
       <!-- Sign 03 -->
       <div class="sign">
         <span class="sign-number">03</span>
-        <h3>Signal Overload</h3>
-        <p>How many priorities does each person carry? More than three means nothing is actually a priority. Signal overload is the first symptom of a missing decision architecture.</p>
+        <h3>Too many priorities</h3>
+        <p>How many priorities does each person carry? If there are too many, focus gets lost and work slows down.</p>
       </div>
 
       <!-- Sign 04 -->
       <div class="sign">
         <span class="sign-number">04</span>
-        <h3>Recurring Firefighting</h3>
-        <p>The same crisis surfaces every quarter. Same type of fire. Same cast of heroes. That is not bad luck. That is a structural gap masked as urgency.</p>
+        <h3>Same fires repeat</h3>
+        <p>The same problem keeps coming back. That is a sign the root cause has not been fixed.</p>
       </div>
 
       <!-- Sign 05 -->
       <div class="sign">
         <span class="sign-number">05</span>
-        <h3>Authority Confusion</h3>
-        <p>When pressure hits, who decides? If the answer changes depending on who is in the room, your governance is not real. Authority confusion is the number one cause of transformation stalling.</p>
+        <h3>No clear owner</h3>
+        <p>When pressure hits, who decides? If the answer changes, people lose time waiting for direction.</p>
       </div>
     </div>
   </section>
@@ -568,34 +576,22 @@
   ════════════════════════════════════════════════ -->
   <div class="container">
     <div class="transition">
-      <p>One or more of these feel familiar?</p>
-      <p class="sub">That is not a strategy gap. That is a <strong style="color:#ccccee;">clarity gap</strong>.</p>
+        <p>One or more of these feel familiar?</p>
+        <p class="sub">That is not a strategy gap. That is a <strong style="color:#eef2f7;">clarity problem</strong>.</p>
+        <p class="sub" style="margin-top: 0.5rem; font-size: 1rem; color: var(--gold2);">What everyone wants is <strong>speed</strong>. Clarity gives speed.</p>
     </div>
   </div>
 
   <!-- ════════════════════════════════════════════
-       CTA
+       SOFIA — SUBTLE CONCIERGE NUDGE
   ════════════════════════════════════════════════ -->
-  <section class="cta-section">
-    <div class="container">
-      <div class="cta-card">
-        <h3>Let's fix the operating system underneath.</h3>
-        <p>
-          ClarityOS fixes the operating system underneath. Book a free 15-minute diagnostic call and I will tell you which of the five is the real blocker in your org.
-        </p>
-        <form id="download-form" class="download-form">
-          <div class="form-row">
-            <input type="email" id="email-input" placeholder="Enter your email" required class="form-input" autocomplete="email">
-            <button type="submit" id="download-btn" class="cta-button">
-              Download Your One-Pager →
-            </button>
-          </div>
-          <p class="form-note">No spam. I'll send you the one-pager and maybe a thoughtful follow-up.</p>
-          <div id="form-status" class="form-status"></div>
-        </form>
-      </div>
+  <div class="container">
+    <div class="sofia-nudge">
+      <span class="sofia-icon">✦</span>
+      <span>The signs are clear. Your next move is not. <strong>Sofia</strong> can show you the cost.</span>
+      <a href="#" class="sofia-nudge-link" id="sofia-trigger">Ask Sofia what these signs cost</a>
     </div>
-  </section>
+  </div>
 
   <!-- ════════════════════════════════════════════
        MIRROR CALL
@@ -605,10 +601,10 @@
       <div style="text-align:center;">
         <div class="badge">ClarityOS Mirror Call</div>
         <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); color: #fff; margin-bottom: 0.75rem;">
-          Get Your Own <span class="accent">Executive Assistant</span>
+          Stop guessing. <span class="accent">Get clarity.</span>
         </h2>
-        <p style="color: #9999bb; font-size: 1.05rem; max-width: 520px; margin: 0 auto;">
-          A one-hour session where we map your organization's decision architecture — then build you a personalized ClarityOS Executive Assistant that runs on your operating system.
+        <p style="color: var(--muted); font-size: 1.05rem; max-width: 520px; margin: 0 auto;">
+          You just named five problem areas. One of them will be the main one. A Mirror Call turns that into a clear diagnosis and next step.
         </p>
       </div>
 
@@ -617,15 +613,15 @@
         <div class="mirror-info">
           <h3>What you get</h3>
           <ul>
-            <li>A complete diagnostic of your current decision architecture</li>
-            <li>Your #1 clarity blocker identified with precision</li>
-            <li>A personalized ClarityOS Executive Assistant built for your org</li>
-            <li>Governance protocols installed — not theory, working code</li>
-            <li>Follow-up report with implementation roadmap</li>
+            <li>A clear review of how decisions are made now</li>
+            <li>Your main blocker identified</li>
+            <li>A simple ClarityOS next-step plan</li>
+            <li>Clear rules for ownership and action</li>
+            <li>A follow-up report with the next move</li>
           </ul>
           <div class="mirror-price">One-time investment · $79</div>
           <p style="font-size:0.85rem;">
-            This is not coaching. This is an operating system upgrade for your organization. You leave with an AI-native Executive Assistant that enforces clarity across decisions, roles, and governance.
+            This is not coaching. It is a practical reset for how your team works and decides.
           </p>
         </div>
 
@@ -635,15 +631,15 @@
 
           <!-- Step 1: Stripe Payment -->
           <div class="booking-step active" id="booking-step-1">
-            <p style="color:#9999bb; font-size:0.85rem; margin-bottom:1.5rem; text-align:center;">
-              Secure payment via Stripe. Your session is confirmed once the payment is processed.
+            <p style="color:var(--muted); font-size:0.85rem; margin-bottom:1.5rem; text-align:center;">
+              Pay through Stripe. Your session is confirmed after payment.
             </p>
             <a href="https://buy.stripe.com/00w28q41PdjveV2bfWcV201" target="_blank" class="stripe-btn" id="stripe-btn">
               Pay $79 &amp; Book Your Mirror Call
               <span class="small">Secure checkout powered by Stripe</span>
             </a>
-            <p style="color:#555577; font-size:0.75rem; margin-top:1rem; text-align:center;">
-              After payment, you'll return here to select your preferred date and time.
+            <p style="color:var(--muted); font-size:0.75rem; margin-top:1rem; text-align:center;">
+              After payment, you can choose your date and time.
             </p>
           </div>
 
@@ -685,10 +681,29 @@
               Confirm Booking →
             </button>
             <div id="booking-status" class="booking-status"></div>
-            <p style="color:#555577; font-size:0.75rem; margin-top:0.75rem; text-align:center;">
+            <p style="color:var(--muted); font-size:0.75rem; margin-top:0.75rem; text-align:center;">
               You'll receive a confirmation email with a calendar invite and Google Meet link.
             </p>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       CTA — BROCHURE
+  ════════════════════════════════════════════════ -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-card">
+          <h3>See the full scorecard report.</h3>
+          <p>
+          The complete Clarity Scorecard, laid out as a simple report — enter your email to unlock it.
+          </p>
+        <div class="brochure-link-wrap">
+          <a href="/brochure" class="brochure-link">
+            View the Scorecard Report <span class="arrow">→</span>
+          </a>
         </div>
       </div>
     </div>
@@ -700,8 +715,11 @@
   <footer>
     <div class="container">
       <p>
-        Zeeshan Sabri · <a href="https://clarity-os.com" target="_blank">ClarityOS</a> · Free Diagnostic<br>
+        Zeeshan Sabri · <a href="https://clarity-os.com" target="_blank">ClarityOS</a> · Free Scorecard<br>
         <a href="mailto:clarityos@global-mkts.com">clarityos@global-mkts.com</a>
+      </p>
+      <p style="margin-top: 0.75rem; font-style: italic; color: #555577;">
+        Clarity is not a communication problem. It is a work-flow problem. Fix the system underneath.
       </p>
     </div>
   </footer>
@@ -710,82 +728,6 @@
        APP JAVASCRIPT
   ════════════════════════════════════════════════ -->
   <script>
-    // ── Lead Magnet: Email Capture + PDF Download ──
-    const form = document.getElementById('download-form');
-    const emailInput = document.getElementById('email-input');
-    const downloadBtn = document.getElementById('download-btn');
-    const formStatus = document.getElementById('form-status');
-
-    if (form) {
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = emailInput.value.trim();
-        if (!email) return;
-
-        downloadBtn.disabled = true;
-        downloadBtn.textContent = 'Sending...';
-        formStatus.className = 'form-status';
-        formStatus.textContent = '';
-
-        try {
-          const res = await fetch('/submit', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email }),
-          });
-
-          const data = await res.json();
-
-          if (res.ok && data.success) {
-            formStatus.className = 'form-status success';
-            formStatus.textContent = 'Thanks! Downloading your one-pager...';
-
-            // Trigger PDF download in background
-            const link = document.createElement('a');
-            link.href = '/clarityos-diagnostic-one-pager.pdf';
-            link.download = 'ClarityOS-Diagnostic-One-Pager.pdf';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            downloadBtn.textContent = '✓ Sent & Downloading';
-            setTimeout(() => {
-              downloadBtn.disabled = false;
-              downloadBtn.textContent = 'Download Your One-Pager →';
-            }, 4000);
-          } else {
-            // Fallback: download directly even if API fails
-            formStatus.className = 'form-status info';
-            formStatus.textContent = 'Starting your download...';
-
-            const link = document.createElement('a');
-            link.href = '/clarityos-diagnostic-one-pager.pdf';
-            link.download = 'ClarityOS-Diagnostic-One-Pager.pdf';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            downloadBtn.disabled = false;
-            downloadBtn.textContent = 'Download Your One-Pager →';
-          }
-        } catch (err) {
-          // Network error — still offer the PDF
-          formStatus.className = 'form-status info';
-          formStatus.textContent = 'Network issue. Downloading directly...';
-
-          const link = document.createElement('a');
-          link.href = '/clarityos-diagnostic-one-pager.pdf';
-          link.download = 'ClarityOS-Diagnostic-One-Pager.pdf';
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-
-          downloadBtn.disabled = false;
-          downloadBtn.textContent = 'Download Your One-Pager →';
-        }
-      });
-    }
-
     // ── Mirror Call: Stripe → Calendar Booking Flow ──
     const stripeBtn = document.getElementById('stripe-btn');
     const step1 = document.getElementById('booking-step-1');
@@ -808,25 +750,18 @@
     }
 
     // When Stripe button is clicked, open Stripe checkout in new tab
-    // After returning, show step 2
     if (stripeBtn) {
       stripeBtn.addEventListener('click', (e) => {
-        // Don't prevent default — let it open the Stripe link
-        // We'll detect return via a "I've paid" mechanism
-
-        // Store in sessionStorage that user initiated payment
         sessionStorage.setItem('mirror-call-payment-started', 'true');
       });
     }
 
     // After Stripe payment, user comes back. Manual "I've paid" trigger
-    // Add a subtle "Already paid?" link
     const alreadyPaid = document.createElement('p');
     alreadyPaid.style.cssText = 'text-align:center; margin-top:0.75rem;';
-    alreadyPaid.innerHTML = '<a href="#" id="already-paid-link" style="color:#6666cc; font-size:0.8rem; text-decoration:none;">Already paid? Click here to choose your time →</a>';
+    alreadyPaid.innerHTML = '<a href="#" id="already-paid-link" style="color:var(--gold); font-size:0.8rem; text-decoration:none;">Already paid? Click here to choose your time →</a>';
 
     if (step1) {
-      // Insert after the "After payment" text
       const afterText = step1.querySelector('p:last-child');
       if (afterText) {
         afterText.after(alreadyPaid);
@@ -841,7 +776,7 @@
       }
     });
 
-    // Date/Time validation: ensure selected date is >= tomorrow
+    // Date/Time validation
     if (bookDate) {
       bookDate.addEventListener('change', () => {
         const selected = new Date(bookDate.value);
@@ -863,7 +798,6 @@
         const date = bookDate.value;
         const time = bookTime.value;
 
-        // Validate
         if (!name) {
           bookingStatus.className = 'booking-status error';
           bookingStatus.textContent = 'Please enter your name.';
@@ -914,10 +848,7 @@
           if (res.ok && data.success) {
             bookingStatus.className = 'booking-status success';
             bookingStatus.textContent = '✓ Mirror Call booked! Check your email for confirmation and calendar invite.';
-
             bookSubmitBtn.textContent = '✓ Booked!';
-
-            // Clear form
             sessionStorage.removeItem('mirror-call-payment-started');
           } else {
             bookingStatus.className = 'booking-status error';
@@ -932,6 +863,33 @@
           bookSubmitBtn.textContent = 'Confirm Booking →';
         }
       });
+    } // ← close the if(bookSubmitBtn) block
+    // ── Sofia CTA: Scroll to bottom & highlight the concierge widget ──
+    const sofiaTrigger = document.getElementById('sofia-trigger');
+    if (sofiaTrigger) {
+      sofiaTrigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        // Scroll to the very bottom of the page where Sofia's widget lives
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+
+        // Try to find and pulse the Sofia widget button
+        const findAndPulse = setInterval(() => {
+          // The lasio widget creates an iframe — try to find any clickable element near the bottom-right
+          const widgetBtn = document.querySelector('[class*="widget"], [id*="widget"], iframe[src*="lasio"]');
+          if (widgetBtn) {
+            widgetBtn.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
+            widgetBtn.style.transform = 'scale(1.15)';
+            widgetBtn.style.boxShadow = '0 0 30px rgba(214, 179, 106, 0.6)';
+            setTimeout(() => {
+              widgetBtn.style.transform = 'scale(1)';
+              widgetBtn.style.boxShadow = 'none';
+            }, 1500);
+            clearInterval(findAndPulse);
+          }
+        }, 500);
+        // Stop trying after 5 seconds
+        setTimeout(() => clearInterval(findAndPulse), 5000);
+      });
     }
   </script>
 
@@ -939,6 +897,17 @@
        SOFIA CLARITYOS CONCIERGE WIDGET
   ════════════════════════════════════════════════ -->
   <script src="https://lasio.ai/widget.js?id=141&api_key=wk_3c4b2b9c733c09add3e0dace740868b6e63aae48aa2df360f71d940cace38738"></script>
+
+  <style>
+    /* Pulse animation for Sofia widget highlight */
+    @keyframes sofia-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(214, 179, 106, 0.4); }
+      50% { box-shadow: 0 0 0 12px rgba(214, 179, 106, 0); }
+    }
+    .sofia-highlight {
+      animation: sofia-pulse 1.2s ease 3;
+    }
+  </style>
 
 </body>
 </html>
