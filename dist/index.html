@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClarityOS · Five Signs</title>
+  <meta name="description" content="See the five signs, then move to the ClarityOS test.">
+  <style>
+    :root {
+      --bg: #0b1016;
+      --bg-soft: #141b25;
+      --panel: rgba(18, 24, 34, 0.94);
+      --panel-line: rgba(255, 255, 255, 0.1);
+      --text: #f3f5f9;
+      --muted: #b6becb;
+      --gold: #d6b36a;
+      --gold-deep: #b88f44;
+      --gold-soft: #f1ddac;
+      --shadow: 0 30px 90px rgba(0, 0, 0, 0.35);
+      --max: 1160px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      min-height: 100%;
+    }
+
+    body {
+      margin: 0;
+      font: 16px/1.6 Georgia, "Times New Roman", serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 25%, rgba(214, 179, 106, 0.08), transparent 26%),
+        radial-gradient(circle at 78% 18%, rgba(84, 106, 142, 0.1), transparent 24%),
+        linear-gradient(180deg, #121923 0%, #0d131b 48%, #090d12 100%);
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .page-shell {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .page-shell::before,
+    .page-shell::after {
+      content: "";
+      position: absolute;
+      inset: auto;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page-shell::before {
+      top: -18vh;
+      right: -14vw;
+      width: 44vw;
+      height: 44vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(214, 179, 106, 0.08), transparent 68%);
+    }
+
+    .page-shell::after {
+      left: -14vw;
+      bottom: -18vh;
+      width: 50vw;
+      height: 50vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(103, 124, 160, 0.08), transparent 70%);
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 0;
+    }
+
+    .hero-inner {
+      width: 100%;
+      max-width: 780px;
+    }
+
+    .eyebrow {
+      margin: 0 0 1.3rem;
+      color: var(--muted);
+      font: 500 12px/1 Arial, sans-serif;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      margin: 0;
+      font-size: clamp(3rem, 8vw, 6.4rem);
+      line-height: 0.96;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .hero-title .accent {
+      color: var(--gold);
+    }
+
+    .hero-subtitle {
+      margin: 1.2rem 0 2.1rem;
+      max-width: 720px;
+      color: #d7deea;
+      font-size: clamp(1.25rem, 2.8vw, 2rem);
+      line-height: 1.28;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-cta,
+    .modal-cta,
+    .modal-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border-radius: 18px;
+      border: 1px solid transparent;
+      font: 700 15px/1 Arial, sans-serif;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease, border-color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .hero-cta,
+    .modal-cta {
+      padding: 1.05rem 1.45rem;
+      background: linear-gradient(180deg, var(--gold), var(--gold-deep));
+      color: #171109;
+      border-color: #caa75d;
+      box-shadow: 0 18px 38px rgba(214, 179, 106, 0.2);
+    }
+
+    .hero-cta:hover,
+    .modal-cta:hover:not(:disabled),
+    .modal-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22);
+    }
+
+    .hero-note {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      background: rgba(7, 10, 15, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-card {
+      width: min(760px, 100%);
+      max-height: min(84vh, 860px);
+      overflow: auto;
+      border: 1px solid var(--panel-line);
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(18, 24, 34, 0.98), rgba(11, 15, 23, 0.98));
+      box-shadow: var(--shadow);
+      padding: 1.4rem 1.4rem 1.2rem;
+    }
+
+    .modal-top {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.15rem;
+    }
+
+    .modal-badge {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(214, 179, 106, 0.24);
+      border-radius: 999px;
+      padding: 0.38rem 0.72rem;
+      color: var(--gold-soft);
+      background: rgba(214, 179, 106, 0.08);
+      font: 600 11px/1 Arial, sans-serif;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.9rem;
+    }
+
+    .modal-title {
+      margin: 0 0 0.35rem;
+      color: #fff;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      line-height: 1.05;
+    }
+
+    .modal-copy {
+      margin: 0;
+      color: var(--muted);
+      max-width: 560px;
+      font-size: 0.98rem;
+    }
+
+    .modal-close {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      border: 1px solid var(--panel-line);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      font: 700 18px/1 Arial, sans-serif;
+      cursor: pointer;
+      flex: 0 0 auto;
+    }
+
+    .modal-close:hover {
+      border-color: rgba(214, 179, 106, 0.28);
+      color: var(--gold-soft);
+    }
+
+    .sign-list {
+      display: grid;
+      gap: 0.8rem;
+      margin: 1.2rem 0 0;
+    }
+
+    .sign-card {
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
+      padding: 1rem 1rem 1rem 3.2rem;
+    }
+
+    .sign-number {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      color: var(--gold);
+      font: 700 11px/1 Arial, sans-serif;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .sign-card h3 {
+      margin: 0 0 0.3rem;
+      color: #fff;
+      font-size: 1.02rem;
+      line-height: 1.24;
+    }
+
+    .sign-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    .modal-footer {
+      position: sticky;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      background: linear-gradient(180deg, rgba(11, 15, 23, 0), rgba(11, 15, 23, 0.92) 24%, rgba(11, 15, 23, 0.98) 100%);
+    }
+
+    .modal-timer {
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .modal-cta {
+      min-width: 190px;
+    }
+
+    .modal-cta:disabled {
+      cursor: not-allowed;
+      opacity: 0.56;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .modal-link {
+      padding: 0.95rem 1.2rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-color: var(--panel-line);
+      color: var(--text);
+    }
+
+    .footer-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
+      padding: 0 1rem 1rem;
+      pointer-events: none;
+    }
+
+    .footer-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.95rem 1rem;
+      border: 1px solid rgba(214, 179, 106, 0.14);
+      border-radius: 16px;
+      background: rgba(11, 15, 23, 0.72);
+      color: var(--muted);
+      font-size: 0.82rem;
+      backdrop-filter: blur(8px);
+      pointer-events: auto;
+    }
+
+    .footer-inner a {
+      color: var(--gold-soft);
+    }
+
+    @media (max-width: 720px) {
+      body {
+        overflow: auto;
+      }
+
+      .hero {
+        align-items: start;
+        padding-top: 6rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.15rem;
+      }
+
+      .modal-card {
+        padding: 1.1rem 1rem 1rem;
+      }
+
+      .modal-top,
+      .modal-footer,
+      .footer-inner {
+        flex-direction: column;
+        align-items: start;
+      }
+
+      .modal-close {
+        align-self: end;
+      }
+
+      .modal-cta,
+      .modal-link {
+        width: 100%;
+      }
+
+      .footer-bar {
+        position: static;
+        padding: 0 1rem 1rem;
+      }
+
+      .footer-inner {
+        margin-top: -1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <section class="hero">
+      <div class="container">
+        <div class="hero-inner">
+          <p class="eyebrow">Five signs</p>
+          <h1 class="hero-title"><span class="accent">Clarity</span> Signs</h1>
+          <p class="hero-subtitle">See the five signs before you move to the test page.</p>
+          <div class="hero-actions">
+            <button class="hero-cta" id="open-signs" type="button">See the signs →</button>
+            <span class="hero-note">Read first. Then move to the test.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="modal-backdrop" id="signs-modal" aria-hidden="true">
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="signs-title">
+        <div class="modal-top">
+          <div>
+            <div class="modal-badge">Five signs</div>
+            <h2 class="modal-title" id="signs-title">Read the signs before you test the pattern.</h2>
+            <p class="modal-copy">If more than one feels familiar, that is fine. The next page will help show which one is carrying the most pressure.</p>
+          </div>
+          <button class="modal-close" id="close-signs" type="button" aria-label="Close">×</button>
+        </div>
+
+        <div class="sign-list">
+          <article class="sign-card">
+            <span class="sign-number">01</span>
+            <h3>Decision drag</h3>
+            <p>If decisions are made but action still slows down, the issue is usually the path from decision to execution.</p>
+          </article>
+
+          <article class="sign-card">
+            <span class="sign-number">02</span>
+            <h3>Ownership drift</h3>
+            <p>If ownership changes when pressure rises, the system is leaning on informal rescue instead of stable accountability.</p>
+          </article>
+
+          <article class="sign-card">
+            <span class="sign-number">03</span>
+            <h3>Priority overload</h3>
+            <p>If everyone is carrying too many live priorities, the team stays busy but the real bottleneck never gets simpler.</p>
+          </article>
+
+          <article class="sign-card">
+            <span class="sign-number">04</span>
+            <h3>Repeat fires</h3>
+            <p>If the same issue keeps coming back, the fix is living in memory or effort, not inside a repeatable operating rule.</p>
+          </article>
+
+          <article class="sign-card">
+            <span class="sign-number">05</span>
+            <h3>Hero dependency</h3>
+            <p>If progress depends on one person stepping in personally, the team may be running on heroics rather than system strength.</p>
+          </article>
+        </div>
+
+        <div class="modal-footer">
+          <div class="modal-timer" id="modal-timer">Take the test unlocks in 5s.</div>
+          <button class="modal-cta" id="take-test" type="button" disabled>Take the test now</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="footer-bar">
+    <div class="footer-inner">
+      <span>Zeeshan Sabri · ClarityOS · Five signs</span>
+      <a href="#" id="sofia-trigger">Ask Sofia what these signs cost</a>
+    </div>
+  </div>
+
+  <script>
+    const openSignsBtn = document.getElementById('open-signs');
+    const closeSignsBtn = document.getElementById('close-signs');
+    const signsModal = document.getElementById('signs-modal');
+    const takeTestBtn = document.getElementById('take-test');
+    const modalTimer = document.getElementById('modal-timer');
+    const sofiaTrigger = document.getElementById('sofia-trigger');
+
+    let unlockTimerId = null;
+    let remainingSeconds = 5;
+
+    function updateTimerText() {
+      if (remainingSeconds > 0) {
+        modalTimer.textContent = `Take the test unlocks in ${remainingSeconds}s.`;
+        return;
+      }
+      modalTimer.textContent = 'You can move to the test now.';
+    }
+
+    function stopUnlockTimer() {
+      if (unlockTimerId) {
+        clearInterval(unlockTimerId);
+        unlockTimerId = null;
+      }
+    }
+
+    function startUnlockTimer() {
+      stopUnlockTimer();
+      remainingSeconds = 5;
+      takeTestBtn.disabled = true;
+      updateTimerText();
+
+      unlockTimerId = window.setInterval(() => {
+        remainingSeconds -= 1;
+        updateTimerText();
+
+        if (remainingSeconds <= 0) {
+          stopUnlockTimer();
+          takeTestBtn.disabled = false;
+        }
+      }, 1000);
+    }
+
+    function openModal() {
+      signsModal.classList.add('open');
+      signsModal.setAttribute('aria-hidden', 'false');
+      startUnlockTimer();
+    }
+
+    function closeModal() {
+      signsModal.classList.remove('open');
+      signsModal.setAttribute('aria-hidden', 'true');
+      stopUnlockTimer();
+    }
+
+    if (openSignsBtn) {
+      openSignsBtn.addEventListener('click', openModal);
+    }
+
+    if (closeSignsBtn) {
+      closeSignsBtn.addEventListener('click', closeModal);
+    }
+
+    if (signsModal) {
+      signsModal.addEventListener('click', (event) => {
+        if (event.target === signsModal) {
+          closeModal();
+        }
+      });
+    }
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && signsModal.classList.contains('open')) {
+        closeModal();
+      }
+    });
+
+    if (takeTestBtn) {
+      takeTestBtn.addEventListener('click', () => {
+        window.location.href = 'brochure.html';
+      });
+    }
+
+    if (sofiaTrigger) {
+      sofiaTrigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        const findAndPulse = setInterval(() => {
+          const widgetBtn = document.querySelector('[class*="widget"], [id*="widget"], iframe[src*="lasio"]');
+          if (widgetBtn) {
+            widgetBtn.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
+            widgetBtn.style.transform = 'scale(1.12)';
+            widgetBtn.style.boxShadow = '0 0 30px rgba(214, 179, 106, 0.55)';
+            setTimeout(() => {
+              widgetBtn.style.transform = 'scale(1)';
+              widgetBtn.style.boxShadow = 'none';
+            }, 1500);
+            clearInterval(findAndPulse);
+          }
+        }, 500);
+
+        setTimeout(() => clearInterval(findAndPulse), 5000);
+      });
+    }
+  </script>
+
+  <script src="https://lasio.ai/widget.js?id=141&api_key=wk_3c4b2b9c733c09add3e0dace740868b6e63aae48aa2df360f71d940cace38738"></script>
+</body>
+</html>

@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClarityOS · Test</title>
+  <meta name="description" content="A short test that shows where work is slowing down in your business.">
+  <style>
+    :root {
+      --bg: #090c12;
+      --panel: rgba(255,255,255,0.04);
+      --panel-strong: rgba(255,255,255,0.07);
+      --text: #eef2f7;
+      --muted: #a8b0bf;
+      --line: rgba(255,255,255,0.1);
+      --gold: #d7b26a;
+      --gold-soft: #f0ddb0;
+      --green: #6fca83;
+      --red: #f07575;
+      --max: 1080px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font: 16px/1.65 Georgia, "Times New Roman", serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(215,178,106,0.16), transparent 28%),
+        radial-gradient(circle at 80% 20%, rgba(96,126,191,0.12), transparent 22%),
+        linear-gradient(180deg, #0d1118 0%, #090c12 100%);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+    button, input { font: inherit; }
+
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .page-shell {
+      max-width: 1180px;
+      margin: 1.25rem auto;
+      padding: 1.25rem 0 0.5rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 32px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      box-shadow: 0 30px 80px rgba(0,0,0,0.28);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 0 0;
+      color: var(--muted);
+      font: 600 12px/1 Arial, sans-serif;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .topbar a {
+      color: var(--gold-soft);
+      text-decoration: none;
+    }
+
+    .hero {
+      padding: 2rem 0 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -10% -10% auto auto;
+      width: 30rem;
+      height: 30rem;
+      background: radial-gradient(circle, rgba(215,178,106,0.12), transparent 68%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.8rem;
+      border: 1px solid rgba(215,178,106,0.22);
+      border-radius: 999px;
+      background: rgba(215,178,106,0.06);
+      color: var(--gold-soft);
+      font: 600 11px/1 Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 1.4rem;
+    }
+
+    h1, h2, h3, h4 {
+      margin: 0;
+      line-height: 1.08;
+      font-weight: 700;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.6rem, 7vw, 4.8rem);
+      max-width: 12ch;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .hero h1 .accent { color: var(--gold); }
+
+    .hero p.lead {
+      max-width: 720px;
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      color: #d5dbe5;
+      margin: 0 0 1.5rem;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 0 0 2rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.55rem 0.85rem;
+      background: rgba(255,255,255,0.03);
+      color: var(--muted);
+      font: 500 12px/1 Arial, sans-serif;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 1.5rem;
+      align-items: stretch;
+      margin-top: 1.5rem;
+    }
+
+    .hero-card,
+    .panel,
+    .gate-card,
+    .result-card,
+    .report-card,
+    .cta-card {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      box-shadow: 0 30px 80px rgba(0,0,0,0.24);
+    }
+
+    .hero-card {
+      padding: 1.5rem;
+      min-height: 100%;
+    }
+
+    .hero-card h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .hero-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .hero-card li {
+      position: relative;
+      padding-left: 1.4rem;
+      margin-bottom: 0.85rem;
+      color: var(--muted);
+    }
+
+    .hero-card li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+    }
+
+    .metric {
+      padding: 1rem 1.1rem;
+      border-radius: 18px;
+      background: rgba(215,178,106,0.08);
+      border: 1px solid rgba(215,178,106,0.16);
+      margin-bottom: 0.9rem;
+    }
+
+    .metric strong {
+      display: block;
+      font: 700 13px/1.2 Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--gold-soft);
+      margin-bottom: 0.4rem;
+    }
+
+    .metric span {
+      color: #f4f6fa;
+    }
+
+    .assessment {
+      padding: 1rem 0 0.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.7rem, 3.5vw, 2.5rem);
+      color: #fff;
+    }
+
+    .section-header p {
+      max-width: 520px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .assessment-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .panel {
+      padding: 1.2rem 1.2rem 1rem;
+      position: relative;
+      transition: opacity 0.2s ease, filter 0.2s ease, transform 0.2s ease;
+    }
+
+    .panel.locked {
+      opacity: 0.48;
+      filter: blur(3px);
+      transform: scale(0.995);
+      pointer-events: none;
+    }
+
+    .panel-lock {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border-radius: 24px;
+      background: rgba(9,12,18,0.22);
+      color: var(--gold-soft);
+      font: 600 11px/1 Arial, sans-serif;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+
+    .panel.locked .panel-lock {
+      display: flex;
+    }
+
+    .panel h3 {
+      font-size: 1.08rem;
+      color: #fff;
+      margin-bottom: 0.35rem;
+    }
+
+    .panel p {
+      color: var(--muted);
+      margin: 0 0 0.9rem;
+      font-size: 0.93rem;
+    }
+
+    .choices {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.5rem;
+    }
+
+    .choice {
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      color: #d9dfeb;
+      border-radius: 14px;
+      padding: 0.72rem 0.35rem;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+      font: 600 12px/1.15 Arial, sans-serif;
+    }
+
+    .choice span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 0.25rem;
+      font-weight: 500;
+    }
+
+    .choice:hover {
+      transform: translateY(-1px);
+      border-color: rgba(215,178,106,0.35);
+    }
+
+    .choice.selected {
+      background: rgba(215,178,106,0.12);
+      border-color: rgba(215,178,106,0.42);
+      color: #fff;
+    }
+
+    .scorebar-wrap {
+      display: grid;
+      gap: 0.75rem;
+      margin: 1.25rem 0 0.4rem;
+    }
+
+    .scorebar {
+      height: 12px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .scorebar > div {
+      height: 100%;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--gold), #f3dfaf);
+      transition: width 0.25s ease;
+    }
+
+    .score-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      color: var(--muted);
+      font: 600 12px/1.2 Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .result-area {
+      padding: 1.25rem 0 0;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .result-card {
+      padding: 1.4rem;
+    }
+
+    .result-card h3 {
+      color: var(--gold-soft);
+      font-size: 1rem;
+      margin-bottom: 0.45rem;
+      font-family: Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .result-card .score {
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+
+    .result-card p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .calculate-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 1.2rem;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border-radius: 14px;
+      padding: 0.95rem 1.2rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+      text-decoration: none;
+      font: 700 14px/1 Arial, sans-serif;
+    }
+
+    .primary-btn {
+      background: linear-gradient(180deg, var(--gold), #b98f45);
+      color: #171008;
+      border-color: #caa75d;
+    }
+
+    .secondary-btn {
+      background: rgba(255,255,255,0.03);
+      color: #e9edf5;
+      border-color: var(--line);
+    }
+
+    .primary-btn:hover,
+    .secondary-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+    }
+
+    .primary-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .gate {
+      padding: 2rem 0 1rem;
+    }
+
+    .gate-card {
+      padding: 1.5rem;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .gate-card h2 {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+
+    .gate-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .gate-form {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+      gap: 0.75rem;
+      align-items: start;
+    }
+
+    .sofia-nudge {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid rgba(215,178,106,0.16);
+      border-radius: 18px;
+      background: rgba(215,178,106,0.06);
+      color: var(--muted);
+      margin-top: 0.9rem;
+    }
+
+    .sofia-nudge strong {
+      color: var(--text);
+    }
+
+    .sofia-nudge-link {
+      color: var(--gold-soft);
+      text-decoration: none;
+      font: 600 13px/1 Arial, sans-serif;
+      white-space: nowrap;
+    }
+
+    .sofia-nudge-link:hover {
+      text-decoration: underline;
+    }
+
+    .gate-input {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      padding: 0.95rem 1rem;
+      outline: none;
+    }
+
+    .gate-input:focus {
+      border-color: rgba(215,178,106,0.4);
+    }
+
+    .gate-status {
+      min-height: 1.3rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .gate-status.success { color: var(--green); }
+    .gate-status.error { color: var(--red); }
+
+    .full-report {
+      padding: 1.2rem 0 1rem;
+      display: none;
+    }
+
+    .report-card {
+      padding: 1.5rem;
+    }
+
+    .report-shell {
+      position: relative;
+      background: #fbf8f1;
+      color: #18130d;
+      border: 4px solid #103d73;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.18);
+      padding: 1rem;
+    }
+
+    .report-shell::before {
+      content: "";
+      position: absolute;
+      inset: 16px;
+      border: 2px solid #c5921f;
+      pointer-events: none;
+    }
+
+    .report-inner {
+      position: relative;
+      z-index: 1;
+      padding: 3.3rem 2.5rem 2.8rem;
+    }
+
+    .report-hero {
+      text-align: center;
+      padding-bottom: 1.2rem;
+    }
+
+    .report-hero h2 {
+      color: #103d73;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      letter-spacing: 0.03em;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .report-rule {
+      width: min(600px, 82%);
+      height: 8px;
+      margin: 0 auto 1.4rem;
+      background:
+        linear-gradient(180deg, #c5921f 0 42%, transparent 42% 58%, #c5921f 58% 100%);
+    }
+
+    .report-subline {
+      color: #18130d;
+      font-size: clamp(1.06rem, 2vw, 1.45rem);
+      margin: 0 auto;
+      max-width: 800px;
+      line-height: 1.35;
+      font-style: italic;
+    }
+
+    .report-method {
+      color: #18130d;
+      font-size: 0.98rem;
+      line-height: 1.35;
+      margin: 0.45rem auto 0;
+      max-width: 780px;
+    }
+
+    .report-identity-card {
+      margin: 2rem auto 2.4rem;
+      max-width: 760px;
+      padding: 1rem 1.4rem 1.15rem;
+      border: 1px solid rgba(197,146,31,0.7);
+      background: linear-gradient(180deg, #fff8df, #fff6d6);
+      text-align: center;
+    }
+
+    .report-identity-kicker {
+      color: #18130d;
+      font: 700 0.95rem/1.2 Georgia, "Times New Roman", serif;
+      margin-bottom: 0.25rem;
+    }
+
+    .report-name {
+      color: #103d73;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 700;
+      line-height: 1.03;
+      margin: 0 0 0.35rem;
+      text-transform: uppercase;
+    }
+
+    .report-role,
+    .report-line,
+    .report-identity-note {
+      color: #18130d;
+      margin: 0.18rem 0;
+      line-height: 1.25;
+    }
+
+    .report-role {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-variant: small-caps;
+      letter-spacing: 0.02em;
+    }
+
+    .report-line {
+      font-size: 0.95rem;
+    }
+
+    .report-identity-note {
+      font-size: 0.92rem;
+      margin-top: 0.55rem;
+    }
+
+    .report-identity-note strong {
+      font-weight: 700;
+    }
+
+    .report-identity-blur {
+      display: inline-block;
+      color: rgba(24,19,13,0.22);
+      text-shadow:
+        0 0 2px rgba(24,19,13,0.44),
+        0 0 6px rgba(24,19,13,0.28);
+      letter-spacing: 0.02em;
+      user-select: none;
+      margin-left: 0.3rem;
+    }
+
+    .report-identity-hint {
+      display: block;
+      margin-top: 0.3rem;
+      font-size: 0.78rem;
+      color: rgba(75,57,34,0.82);
+    }
+
+    .report-section {
+      position: relative;
+      margin-bottom: 1.55rem;
+    }
+
+    .report-section::before {
+      content: "clarityos";
+      position: absolute;
+      inset: 40px 0 auto 0;
+      text-align: center;
+      font: 700 11rem/1 Georgia, "Times New Roman", serif;
+      color: rgba(16,61,115,0.035);
+      letter-spacing: 0.02em;
+      pointer-events: none;
+      text-transform: lowercase;
+    }
+
+    .report-section-title,
+    .report-subsection-title {
+      position: relative;
+      z-index: 1;
+      color: #103d73;
+      margin: 0 0 0.4rem;
+      font-family: Arial, sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .report-section-title {
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    }
+
+    .report-subsection-title {
+      font-size: clamp(1.02rem, 2vw, 1.18rem);
+      margin-top: 0.95rem;
+    }
+
+    .report-divider {
+      position: relative;
+      z-index: 1;
+      height: 2px;
+      background: #c5921f;
+      margin-bottom: 0.85rem;
+    }
+
+    .report-paragraph,
+    .report-list {
+      position: relative;
+      z-index: 1;
+      color: #18130d;
+      font-size: 1rem;
+      line-height: 1.48;
+      margin: 0 0 0.6rem;
+    }
+
+    .report-paragraph strong {
+      font-weight: 700;
+    }
+
+    .report-list {
+      padding-left: 1.2rem;
+    }
+
+    .report-list li {
+      margin-bottom: 0.38rem;
+    }
+
+    .report-footnote {
+      position: relative;
+      z-index: 1;
+      margin-top: 0.9rem;
+      font-size: 0.84rem;
+      color: #4b3922;
+    }
+
+    .cta {
+      padding: 1rem 0 1.5rem;
+    }
+
+    .cta-card {
+      padding: 1.7rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-card h2 {
+      font-size: 1.5rem;
+      color: #fff;
+      margin-bottom: 0.35rem;
+    }
+
+    .cta-card p {
+      max-width: 620px;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .footer {
+      padding: 0 0 1.5rem;
+      color: var(--muted);
+      font: 500 12px/1.6 Arial, sans-serif;
+      text-align: center;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .assessment-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-header,
+      .cta-card {
+        align-items: start;
+      }
+
+      .gate-form {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        padding-top: 3rem;
+      }
+
+      .choices {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .calculate-row {
+        align-items: stretch;
+      }
+
+      .primary-btn,
+      .secondary-btn {
+        width: 100%;
+      }
+
+      .report-inner {
+        padding: 2.4rem 1.2rem 2rem;
+      }
+
+      .report-shell::before {
+        inset: 10px;
+      }
+
+      .report-section::before {
+        font-size: 5.5rem;
+        top: 88px;
+      }
+    }
+  </style>
+</head>
+  <body>
+  <main class="page-shell">
+  <div class="container">
+    <div class="topbar">
+      <div>ClarityOS · Founder Advisory</div>
+      <a href="/">Back to the main page</a>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="container">
+      <div class="eyebrow">Start here</div>
+      <h1><span class="accent">Take</span> the test.</h1>
+      <p class="lead">Answer five short questions. Use the real business, not the ideal one.</p>
+      <div class="pill-row">
+        <div class="pill">Decision drag</div>
+        <div class="pill">Ownership drift</div>
+        <div class="pill">Priority overload</div>
+        <div class="pill">Repeat fires</div>
+        <div class="pill">Hero dependency</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="assessment">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="eyebrow" style="margin-bottom:0.9rem;">5 questions</div>
+          <h2>Answer the questions.</h2>
+        </div>
+        <p>Choose the answer that fits today. Do not answer for the ideal version of the business.</p>
+      </div>
+
+      <div class="assessment-grid" id="questions"></div>
+
+      <div class="calculate-row">
+        <button class="primary-btn" id="calculate-btn" type="button">See my result</button>
+        <a class="secondary-btn" href="#gate">Unlock the download</a>
+      </div>
+
+        <div class="scorebar-wrap">
+        <div class="score-meta">
+          <span>Overall read</span>
+          <span id="score-label">Not calculated yet</span>
+        </div>
+        <div class="scorebar"><div id="score-fill"></div></div>
+      </div>
+
+      <div class="result-area">
+        <div class="result-card">
+          <h3>Your result</h3>
+          <div class="score" id="score-total">--</div>
+          <p id="result-copy">Answer the five questions to see the main issue.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gate" id="gate">
+    <div class="container">
+      <div class="gate-card">
+        <h2>Unlock your report</h2>
+        <p>Enter your name, title, and email. Your Clarity Mirror image preview will unlock immediately.</p>
+        <form class="gate-form" id="gate-form">
+          <input class="gate-input" id="gate-name" type="text" placeholder="Your name" autocomplete="name">
+          <input class="gate-input" id="gate-title" type="text" placeholder="Your title" autocomplete="organization-title">
+          <input class="gate-input" id="gate-email" type="email" placeholder="Work email" autocomplete="email" required>
+          <button class="primary-btn" id="gate-btn" type="submit">Unlock the report</button>
+        </form>
+        <div id="gate-status" class="gate-status"></div>
+        <p style="font-size:0.8rem; color:var(--muted);">We capture your details for follow-up, and the same report shown here can be downloaded as an image.</p>
+        <div id="download-area" class="hidden" style="margin-top:0.75rem;">
+          <a class="secondary-btn" id="download-report-btn" href="#">Download</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="full-report" id="full-report">
+    <div class="container">
+      <div class="report-card">
+        <div class="report-shell">
+          <div class="report-inner">
+            <div class="report-hero">
+              <h2 id="report-title">Clarity Mirror</h2>
+              <div class="report-rule"></div>
+              <p class="report-subline" id="report-summary">Identity Positioning &amp; Baseline Validation</p>
+              <p class="report-method" id="report-method">Diagnostic Assessment within the ClarityOS Framework</p>
+            </div>
+
+            <div class="report-identity-card">
+              <p class="report-identity-kicker">Reflection For:</p>
+              <h3 class="report-name" id="report-name">Your Name</h3>
+              <p class="report-role" id="report-role">Your Title</p>
+              <p class="report-line" id="report-line">your@email.com</p>
+              <p class="report-identity-note" id="report-identity-note"><strong>Core Identity:</strong> To be determined from your answers.</p>
+            </div>
+
+            <section class="report-section">
+              <h3 class="report-section-title">Executive Summary</h3>
+              <div class="report-divider"></div>
+              <p class="report-paragraph" id="report-meaning">You will see the main reason work is slowing down.</p>
+              <p class="report-paragraph" id="report-context">You will see the operating environment this pattern usually creates.</p>
+              <p class="report-paragraph" id="report-observed">You will see the strongest observed pattern from the answers.</p>
+            </section>
+
+            <section class="report-section">
+              <h3 class="report-section-title" id="report-core-heading">The Core Identity Observed (1.0)</h3>
+              <div class="report-divider"></div>
+              <p class="report-paragraph" id="report-cost">You will see the business cost this pattern usually creates.</p>
+              <h4 class="report-subsection-title">Path Forward</h4>
+              <p class="report-paragraph" id="report-fix">You will see the first action that can reduce the problem.</p>
+              <h4 class="report-subsection-title">Question Audit</h4>
+              <p class="report-paragraph" id="report-audit">You will see why the selected questions support this brief.</p>
+            </section>
+
+            <section class="report-section">
+              <h3 class="report-section-title">Selected Answers & Validation Notes</h3>
+              <div class="report-divider"></div>
+              <p class="report-paragraph" id="report-answers">Your selected answers will appear here.</p>
+              <p class="report-paragraph" id="report-story">A short real-world operating reflection will appear here.</p>
+              <p class="report-paragraph" id="report-warning">You will see the move that usually makes it worse.</p>
+            </section>
+
+            <p class="report-footnote" id="report-footnote">
+              This baseline brief is a structured reflection, not an evaluation. It is designed to surface the operating pattern behind the visible symptom so the next step stays simple.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <div class="cta-card">
+        <div>
+          <h2>If this still feels off, ask Sofia.</h2>
+          <p>Sofia can give you a second read before you book the call. If the pattern is real, the next step stays simple.</p>
+        </div>
+        <a class="primary-btn" href="https://buy.stripe.com/00w28q41PdjveV2bfWcV201" target="_blank" rel="noreferrer">Book a Mirror Call</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="sofia-nudge">
+      <span>The signs are clear. Your next move is not. <strong>Sofia</strong> can give you a second read.</span>
+      <a href="#" class="sofia-nudge-link" id="sofia-trigger">Ask Sofia</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="footer">
+      Zeeshan Sabri · ClarityOS · <a href="mailto:clarityos@global-mkts.com">clarityos@global-mkts.com</a>
+    </div>
+  </div>
+  </main>
+
+  <script>
+    const reportBlueprint = {
+      template: {
+        kicker: 'Clarity Mirror',
+        title: 'Clarity Mirror',
+        subtitle: 'Identity Positioning & Baseline Validation',
+        methodLine: 'Diagnostic Assessment within the ClarityOS Framework',
+        footnote: 'This baseline brief is a structured reflection, not an evaluation. It is designed to surface the operating pattern behind the visible symptom so the next step stays simple.',
+      },
+      questions: [
+        {
+          id: 'decision',
+          title: 'Decision drag',
+          prompt: 'How long does it take for a decision to turn into action?',
+          audit: 'This tests whether the visible issue is execution capacity or a weak decision-to-action path.',
+        },
+        {
+          id: 'ownership',
+          title: 'Ownership drift',
+          prompt: 'How often does ownership shift when pressure rises?',
+          audit: 'This checks whether responsibility survives pressure or dissolves into informal rescue.',
+        },
+        {
+          id: 'priority',
+          title: 'Priority overload',
+          prompt: 'How often do people carry more active priorities than capacity allows?',
+          audit: 'This reveals whether overload is structural and whether too much live work is hiding the real bottleneck.',
+        },
+        {
+          id: 'fires',
+          title: 'Repeat fires',
+          prompt: 'How often does the same problem come back again?',
+          audit: 'This confirms whether fixes are repeatable or whether the system is surviving on memory and recovery effort.',
+        },
+        {
+          id: 'dependency',
+          title: 'Hero dependency',
+          prompt: 'How often does progress depend on one person stepping in personally?',
+          audit: 'This surfaces whether continuity is being protected by one operator instead of by stable team design.',
+        },
+      ],
+      profiles: {
+        decision: {
+          label: 'Decision drag',
+          identityName: 'The Delayed Converter',
+          briefTitle: 'Clarity Mirror Brief',
+          subtitle: 'The Delayed Conversion Pattern',
+          meaning: 'This pattern shows an organization that can discuss, agree, and react, but cannot consistently convert decisions into clean movement. The issue is not effort. The issue is the space between approval and execution.',
+          context: 'Approvals, follow-up loops, and handoffs are carrying too much ambiguity. Teams wait, re-check, and reopen decisions because the operating path is not explicit enough to hold under pace.',
+          observed: 'The visible symptom is delay. The deeper pattern is a weak decision lane where ownership of the next move is not tight enough.',
+          cost: 'This causes slow delivery, duplicate follow-up, and visible drag even when people are aligned on what should happen.',
+          fix: 'Define one owner, one response window, and one standard handoff for the decisions that repeat every week.',
+          warning: 'Do not add more meetings before you simplify the actual path from decision to action.',
+          story: 'In one real operating environment, urgent field needs kept getting solved through workaround after workaround because the formal decision path moved slower than the work on the ground. Service continued, but cost and risk kept rising.',
+          auditSummary: 'Question 1 identifies the visible symptom. Questions 2 and 5 test whether the delay is caused by weak accountability or dependence on informal escalation. Questions 3 and 4 confirm whether the problem is isolated or now shaping the wider operating rhythm.',
+        },
+        ownership: {
+          label: 'Ownership drift',
+          identityName: 'The Shared-Line Operator',
+          briefTitle: 'Clarity Mirror Brief',
+          subtitle: 'The Accountability Drift Pattern',
+          meaning: 'This pattern shows a business where responsibility exists in conversation but not with enough stability to survive pressure. Work moves, but the full path from request to result does not belong clearly to one accountable owner.',
+          context: 'Several people touch the same workflow, especially when urgency rises. The system can describe contribution, but it cannot always name final accountability.',
+          observed: 'The visible symptom is confusion. The deeper pattern is structural drift in how work ownership is defined, held, and escalated.',
+          cost: 'This creates silent gaps, finger-pointing, rework, and weak cost control when something slips.',
+          fix: 'Map the repeat work, assign one accountable owner per workflow, and make exception escalation explicit.',
+          warning: 'Do not keep critical work in a shared zone where everyone contributes but nobody holds the final line.',
+          story: 'In one growth-stage team, logistics, purchasing, and invoicing were spread across overloaded roles. When delivery or cost slipped, no one could clearly trace full accountability from start to finish.',
+          auditSummary: 'Question 2 is the core signal here. Question 1 tests whether ownership weakness is now causing delay. Question 5 checks whether a hero has filled the gap. Questions 3 and 4 show whether the same drift is now multiplying priorities and repeat incidents.',
+        },
+        priority: {
+          label: 'Priority overload',
+          identityName: 'The Overextended Carrier',
+          briefTitle: 'Clarity Mirror Brief',
+          subtitle: 'The Overloaded Focus Pattern',
+          meaning: 'This pattern shows a team carrying more live work than the operating system can finish cleanly. Activity remains high, but the system cannot simplify enough to produce clean throughput.',
+          context: 'Important work and urgent work are competing in the same lane. People stay busy, but the real bottleneck keeps moving because capacity discipline is weak.',
+          observed: 'The visible symptom is busyness. The deeper pattern is too many active fronts with too little sequencing discipline.',
+          cost: 'This creates partial progress, fatigue, and a misleading sense that execution is moving faster than it really is.',
+          fix: 'Reduce active priorities, separate urgent from strategic work, and cap how much live work any one owner can carry.',
+          warning: 'Do not keep loading urgent asks into a system that is already beyond working capacity.',
+          story: 'In one operating unit, a small leadership layer was carrying supplier follow-up, delivery issues, invoice friction, and customer demands at the same time. Everything moved, but nothing moved cleanly.',
+          auditSummary: 'Question 3 is the main signal. Questions 1 and 4 test whether overload is already producing delay and repeat incidents. Questions 2 and 5 show whether the workload is being held by structure or by informal rescue.',
+        },
+        fires: {
+          label: 'Repeat fires',
+          identityName: 'The Repeat Rescuer',
+          briefTitle: 'Clarity Mirror Brief',
+          subtitle: 'The Rescue Loop Pattern',
+          meaning: 'This pattern shows an organization that knows how to recover, but not yet how to prevent recurrence. The fix still lives in memory, effort, or exception behavior rather than inside a repeatable rule.',
+          context: 'People can resolve the issue when it happens, but the system still cannot stop the same category of issue from returning under the same conditions.',
+          observed: 'The visible symptom is repetition. The deeper pattern is a rescue loop where operational knowledge has not yet been converted into a stable operating mechanism.',
+          cost: 'This burns leadership attention, normalizes chaos, and trains the team to wait for the next rescue instead of strengthening prevention.',
+          fix: 'Choose one repeating issue, document the trigger, owner, decision rule, and prevention step, then review it weekly.',
+          warning: 'Do not mistake strong rescue behavior for proof that the system is working.',
+          story: 'In one field operation, urgent issues kept reappearing because the people closest to the work knew how to solve them, but the system had not yet absorbed that knowledge into a stable process.',
+          auditSummary: 'Question 4 confirms recurrence. Questions 1 and 5 test whether the repeat problem is now slowing decisions or relying on one person to recover it. Questions 2 and 3 check whether drift and overload are helping the same issue reappear.',
+        },
+        dependency: {
+          label: 'Hero dependency',
+          identityName: 'The Personal Stabilizer',
+          briefTitle: 'Clarity Mirror Brief',
+          subtitle: 'The Personal Rescue Pattern',
+          meaning: 'This pattern shows a business relying on personal heroics to preserve continuity. The organization still works, but too much of its stability depends on one person stepping in directly.',
+          context: 'A single operator becomes the escalation anchor, client shield, and emergency fixer because the system cannot yet absorb pressure on its own.',
+          observed: 'The visible symptom is reliance on one capable person. The deeper pattern is a weak transfer of authority, boundaries, and team capability.',
+          cost: 'This creates burnout, fragile continuity, and slower capability growth across the wider team.',
+          fix: 'Move one recurring escalation path away from the hero by defining service thresholds, team authority, and a simple boundary script.',
+          warning: 'Do not confuse personal availability with organizational strength.',
+          story: 'In one frontline operation, clients bypassed the normal process and went directly to the person who always fixed the issue. Trust went up, but so did burnout and team dependency.',
+          auditSummary: 'Question 5 is the anchor signal. Questions 2 and 4 reveal whether the dependency is being caused by unstable ownership and repeat incidents. Questions 1 and 3 show whether that same hero role is now masking delay and overload.',
+        },
+      },
+    };
+
+    const questionsData = reportBlueprint.questions;
+
+    const optionLabels = [
+      'Rare',
+      'Sometimes',
+      'Often',
+      'Always',
+    ];
+
+    const leakProfiles = reportBlueprint.profiles;
+
+    const state = Object.fromEntries(questionsData.map((q) => [q.id, null]));
+    const questionsEl = document.getElementById('questions');
+    const scoreTotalEl = document.getElementById('score-total');
+    const scoreLabelEl = document.getElementById('score-label');
+    const scoreFillEl = document.getElementById('score-fill');
+    const resultCopyEl = document.getElementById('result-copy');
+    const calculateBtn = document.getElementById('calculate-btn');
+    const gateForm = document.getElementById('gate-form');
+    const gateName = document.getElementById('gate-name');
+    const gateTitle = document.getElementById('gate-title');
+    const gateEmail = document.getElementById('gate-email');
+    const gateBtn = document.getElementById('gate-btn');
+    const gateStatus = document.getElementById('gate-status');
+    const downloadArea = document.getElementById('download-area');
+    const downloadReportBtn = document.getElementById('download-report-btn');
+    const fullReport = document.getElementById('full-report');
+    const reportTitle = document.getElementById('report-title');
+    const reportSummary = document.getElementById('report-summary');
+    const reportMethod = document.getElementById('report-method');
+    const reportName = document.getElementById('report-name');
+    const reportRole = document.getElementById('report-role');
+    const reportLine = document.getElementById('report-line');
+    const reportIdentityNote = document.getElementById('report-identity-note');
+    const reportMeaning = document.getElementById('report-meaning');
+    const reportContext = document.getElementById('report-context');
+    const reportObserved = document.getElementById('report-observed');
+    const reportFix = document.getElementById('report-fix');
+    const reportCost = document.getElementById('report-cost');
+    const reportWarning = document.getElementById('report-warning');
+    const reportAudit = document.getElementById('report-audit');
+    const reportAnswers = document.getElementById('report-answers');
+    const reportStory = document.getElementById('report-story');
+    const reportCoreHeading = document.getElementById('report-core-heading');
+    const reportFootnote = document.getElementById('report-footnote');
+
+    const unlockKey = 'clarity-test-unlocked';
+    let currentResult = null;
+    let reportUnlocked = false;
+    let latestProfile = {
+      name: '',
+      title: '',
+      email: '',
+      summary: '',
+    };
+
+    function renderQuestions() {
+      questionsEl.innerHTML = questionsData.map((q) => `
+        <article class="panel" data-panel="${q.id}">
+          <div class="panel-lock">Answer previous question</div>
+          <h3>${q.title}</h3>
+          <p>${q.prompt}</p>
+          <div class="choices" role="group" aria-label="${q.title}">
+            ${optionLabels.map((opt, index) => `
+              <button type="button" class="choice" data-question="${q.id}" data-value="${index}">
+                ${opt}
+              </button>
+            `).join('')}
+          </div>
+        </article>
+      `).join('');
+
+      questionsEl.querySelectorAll('.choice').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const question = btn.dataset.question;
+          const value = Number(btn.dataset.value);
+          state[question] = value;
+          updateSelection(question, value);
+          updateQuestionLocks();
+          calculateResult();
+        });
+      });
+
+      updateQuestionLocks();
+    }
+
+    function updateSelection(questionId, value) {
+      questionsEl.querySelectorAll(`[data-question="${questionId}"]`).forEach((btn) => {
+        btn.classList.toggle('selected', Number(btn.dataset.value) === value);
+      });
+    }
+
+    function updateQuestionLocks() {
+      questionsData.forEach((question, index) => {
+        const panel = questionsEl.querySelector(`[data-panel="${question.id}"]`);
+        if (!panel) return;
+        const unlocked = index === 0 || state[questionsData[index - 1].id] !== null;
+        panel.classList.toggle('locked', !unlocked);
+      });
+    }
+
+    function calculateBand(score) {
+      if (score <= 4) return { label: 'Clear', copy: 'Things are mostly clear, but there is still a little friction.' };
+      if (score <= 8) return { label: 'Some risk', copy: 'The business is starting to slow down. Fix a few things now.' };
+      if (score <= 12) return { label: 'High risk', copy: 'Too much confusion is building up. The team needs a simpler way to work.' };
+      return { label: 'Urgent', copy: 'The business is losing too much speed. This needs attention now.' };
+    }
+
+    function getRankedPatterns() {
+      return Object.entries(state)
+        .filter(([, value]) => value !== null)
+        .sort((a, b) => b[1] - a[1]);
+    }
+
+    function getPatternFit(primaryScore, secondaryScore) {
+      if (primaryScore === null || primaryScore === undefined) {
+        return 'Pattern fit will appear after you answer all five questions.';
+      }
+      if (primaryScore >= 3 && primaryScore - secondaryScore >= 2) {
+        return 'High fit. One pattern is clearly carrying most of the pressure.';
+      }
+      if (primaryScore >= 2 && primaryScore - secondaryScore >= 1) {
+        return 'Strong fit. One pattern leads, but another one is reinforcing it.';
+      }
+      return 'Shared fit. Your answers point to overlapping pressure rather than one isolated issue.';
+    }
+
+    function formatAnswerSummary() {
+      const answered = questionsData
+        .filter((question) => state[question.id] !== null)
+        .map((question) => `${question.title}: ${optionLabels[state[question.id]]}`);
+
+      if (!answered.length) {
+        return 'Your selected answers will appear here once you start the test.';
+      }
+
+      return answered.join(' | ');
+    }
+
+    function calculateResult() {
+      const answered = Object.values(state).filter((value) => value !== null);
+      const total = answered.reduce((sum, value) => sum + value, 0);
+      const maxScore = questionsData.length * 3;
+      const completed = answered.length === questionsData.length;
+      const ranked = getRankedPatterns();
+      const dominantId = ranked[0]?.[0] || 'decision';
+      const dominantScore = ranked[0]?.[1] ?? 0;
+      const secondaryScore = ranked[1]?.[1] ?? 0;
+      const profile = leakProfiles[dominantId];
+      const band = calculateBand(total);
+      const percent = Math.round((total / maxScore) * 100);
+      const fit = getPatternFit(dominantScore, secondaryScore);
+
+      currentResult = {
+        total,
+        maxScore,
+        percent,
+        band,
+        profile,
+        dominantId,
+        fit,
+        ranked,
+      };
+
+      scoreTotalEl.textContent = band.label;
+      scoreLabelEl.textContent = band.label;
+      scoreFillEl.style.width = `${percent}%`;
+
+      if (!completed) {
+        resultCopyEl.textContent = 'Answer all five questions to see the main issue.';
+        buildReport();
+        return;
+      }
+
+      resultCopyEl.textContent = `${band.copy} Your strongest signal is ${profile.label.toLowerCase()}. ${profile.meaning}`;
+      buildReport();
+    }
+
+    function buildReport() {
+      const template = reportBlueprint.template;
+      const dominant = currentResult?.profile || leakProfiles.decision;
+      const band = currentResult?.band || calculateBand(0);
+      const name = latestProfile.name || gateName.value.trim() || 'Your name';
+      const title = latestProfile.title || gateTitle.value.trim() || 'Your title';
+      const email = latestProfile.email || gateEmail.value.trim() || 'your@email.com';
+      reportTitle.textContent = template.title;
+      reportSummary.textContent = template.subtitle;
+      reportMethod.textContent = `${template.methodLine} | Readout: ${band.label}`;
+      reportName.textContent = name;
+      reportRole.textContent = title;
+      reportLine.textContent = email;
+      reportIdentityNote.innerHTML = `<strong>Core Identity:</strong><span class="report-identity-blur">requires a mirror session</span><span class="report-identity-hint">Identity validation happens inside the Clarity Mirror Session.</span>`;
+      reportMeaning.innerHTML = `<strong>${dominant.label}</strong> is the strongest signal in this reflection. ${dominant.meaning}`;
+      reportContext.innerHTML = `<strong>Operating environment:</strong> ${dominant.context}`;
+      reportObserved.innerHTML = `<strong>Observed pattern:</strong> ${dominant.observed}`;
+      reportCoreHeading.textContent = 'Baseline Pattern Observed (1.0)';
+      reportCost.innerHTML = `<strong>Current cost:</strong> ${dominant.cost}`;
+      reportFix.innerHTML = `<strong>Path forward:</strong> ${dominant.fix}`;
+      reportAudit.innerHTML = `<strong>Question audit:</strong> ${dominant.auditSummary}`;
+      reportAnswers.innerHTML = `<strong>Selected answers:</strong> ${formatAnswerSummary()}`;
+      reportStory.innerHTML = `<strong>Validation note:</strong> ${dominant.story}`;
+      reportWarning.innerHTML = `<strong>What not to do:</strong> ${dominant.warning}`;
+      reportFootnote.textContent = template.footnote;
+    }
+
+    calculateBtn.addEventListener('click', calculateResult);
+
+    if (sessionStorage.getItem(unlockKey) === 'true') {
+      reportUnlocked = true;
+      fullReport.style.display = 'block';
+      downloadArea.classList.remove('hidden');
+      gateBtn.textContent = 'Download';
+    }
+
+    gateForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (reportUnlocked) {
+        await downloadReport();
+        return;
+      }
+
+      if (!currentResult) {
+        calculateResult();
+      }
+
+      if (Object.values(state).some((value) => value === null)) {
+        gateStatus.className = 'gate-status error';
+        gateStatus.textContent = 'Please answer all five questions first.';
+        return;
+      }
+
+      const email = gateEmail.value.trim();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        gateStatus.className = 'gate-status error';
+        gateStatus.textContent = 'Please enter a valid work email.';
+        return;
+      }
+
+      gateBtn.disabled = true;
+      gateBtn.textContent = 'Preparing...';
+      gateStatus.className = 'gate-status';
+      gateStatus.textContent = 'Preparing your report.';
+
+      const name = gateName.value.trim() || gateEmail.value.trim().split('@')[0];
+      const title = gateTitle.value.trim() || 'Leadership Team';
+      latestProfile = {
+        name,
+        title,
+        email,
+        summary: resultCopyEl.textContent,
+      };
+      reportUnlocked = true;
+      sessionStorage.setItem(unlockKey, 'true');
+      fullReport.style.display = 'block';
+      downloadArea.classList.remove('hidden');
+      buildReport();
+
+      try {
+        const payload = {
+          name,
+          title,
+          email,
+          source: 'test-page',
+          score: currentResult.total,
+          scoreBand: currentResult.band.label,
+          dominantLeak: currentResult.profile.label,
+          summary: resultCopyEl.textContent,
+          answers: questionsData.map((question) => ({
+            question: question.title,
+            answer: optionLabels[state[question.id]],
+          })),
+        };
+
+        const res = await fetch('/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          gateStatus.className = 'gate-status success';
+          gateStatus.textContent = 'Your report is ready. Click Download to save it.';
+        } else {
+          gateStatus.className = 'gate-status success';
+          gateStatus.textContent = 'Your report is ready. Click Download to save it.';
+        }
+      } catch (err) {
+        gateStatus.className = 'gate-status success';
+        gateStatus.textContent = 'Your report is ready. Click Download to save it.';
+      } finally {
+        gateBtn.disabled = false;
+        gateBtn.textContent = 'Download';
+      }
+    });
+
+    const sofiaTrigger = document.getElementById('sofia-trigger');
+    if (sofiaTrigger) {
+      sofiaTrigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+
+        const findAndPulse = setInterval(() => {
+          const widgetBtn = document.querySelector('[class*="widget"], [id*="widget"], iframe[src*="sofia"], iframe[src*="lasio"]');
+          if (widgetBtn) {
+            widgetBtn.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
+            widgetBtn.style.transform = 'scale(1.12)';
+            widgetBtn.style.boxShadow = '0 0 30px rgba(214, 179, 106, 0.6)';
+            setTimeout(() => {
+              widgetBtn.style.transform = 'scale(1)';
+              widgetBtn.style.boxShadow = 'none';
+            }, 1500);
+            clearInterval(findAndPulse);
+          }
+        }, 500);
+
+        setTimeout(() => clearInterval(findAndPulse), 5000);
+      });
+    }
+
+    function ensureHtml2Canvas() {
+      if (window.html2canvas) {
+        return Promise.resolve(window.html2canvas);
+      }
+
+      return new Promise((resolve, reject) => {
+        const existing = Array.from(document.scripts).find((script) => script.src.includes('html2canvas'));
+        if (existing) {
+          existing.addEventListener('load', () => resolve(window.html2canvas), { once: true });
+          existing.addEventListener('error', reject, { once: true });
+          return;
+        }
+
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+        script.onload = () => resolve(window.html2canvas);
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
+    }
+
+    async function downloadReport() {
+      const reportNode = document.querySelector('.report-shell');
+      if (!reportNode) {
+        gateStatus.className = 'gate-status error';
+        gateStatus.textContent = 'Download could not find the report block.';
+        return;
+      }
+
+      const html2canvas = await ensureHtml2Canvas().catch(() => null);
+      if (!html2canvas) {
+        gateStatus.className = 'gate-status error';
+        gateStatus.textContent = 'Download failed to load. Please try again.';
+        return;
+      }
+
+      const canvas = await html2canvas(reportNode, {
+        backgroundColor: '#fbf8f1',
+        scale: 2,
+        useCORS: true,
+      }).catch(() => null);
+
+      if (!canvas) {
+        gateStatus.className = 'gate-status error';
+        gateStatus.textContent = 'Download could not render the report.';
+        return;
+      }
+
+      const link = document.createElement('a');
+      const safeName = (latestProfile.name || gateName.value.trim() || 'Lead').replace(/[^a-z0-9]+/gi, '_');
+      link.download = `ClarityOS_Mirror_Report_${safeName}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+
+    if (downloadReportBtn) {
+      downloadReportBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        await downloadReport();
+      });
+    }
+
+    renderQuestions();
+    calculateResult();
+    buildReport();
+  </script>
+  <script src="https://lasio.ai/widget.js?id=141&api_key=wk_3c4b2b9c733c09add3e0dace740868b6e63aae48aa2df360f71d940cace38738"></script>
+</body>
+</html>
