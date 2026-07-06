@@ -3,883 +3,572 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ClarityOS · Free Scorecard</title>
-  <meta name="description" content="Take the free Clarity Scorecard from Zeeshan Sabri. See where work is slowing down in your business.">
+  <title>ClarityOS · Five Signs</title>
+  <meta name="description" content="See the five signs, then move to the ClarityOS test.">
   <style>
-    /* ── Reset & Base ── */
-:root {
-      --bg: #0c0f14;
-      --panel: #131924;
-      --panel2: #0f1520;
-      --text: #eef2f7;
-      --muted: #a7b0bf;
-      --line: rgba(255,255,255,.09);
+    :root {
+      --bg: #0b1016;
+      --bg-soft: #141b25;
+      --panel: rgba(18, 24, 34, 0.94);
+      --panel-line: rgba(255, 255, 255, 0.1);
+      --text: #f3f5f9;
+      --muted: #b6becb;
       --gold: #d6b36a;
-      --gold2: #f1ddac;
-      --max: 960px;
+      --gold-deep: #b88f44;
+      --gold-soft: #f1ddac;
+      --shadow: 0 30px 90px rgba(0, 0, 0, 0.35);
+      --max: 1160px;
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      min-height: 100%;
+    }
+
     body {
-      font: 16px/1.7 Georgia, "Times New Roman", serif;
-      background: radial-gradient(circle at top, #16202f 0%, #0c0f14 42%, #090b10 100%);
+      margin: 0;
+      font: 16px/1.6 Georgia, "Times New Roman", serif;
       color: var(--text);
+      background:
+        radial-gradient(circle at 18% 25%, rgba(214, 179, 106, 0.08), transparent 26%),
+        radial-gradient(circle at 78% 18%, rgba(84, 106, 142, 0.1), transparent 24%),
+        linear-gradient(180deg, #121923 0%, #0d131b 48%, #090d12 100%);
+      overflow: hidden;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Typography ── */
-    h1, h2, h3 { font-weight: 700; line-height: 1.2; }
-    .eyebrow {
-      color: var(--gold2);
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      font: 600 12px/1.2 Arial, sans-serif;
-      margin-bottom: 0.75rem;
-    }
-    .badge {
-      display: inline-block;
-      font: 500 12px/1.2 Arial, sans-serif;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      background: rgba(255,255,255,0.03);
-      color: var(--muted);
-      padding: 0.35rem 0.75rem;
-      border-radius: 100px;
-      border: 1px solid var(--line);
-      margin-bottom: 1rem;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    /* ── Container ── */
-    .container { max-width: var(--max); margin: 0 auto; padding: 0 1.5rem; }
+    button {
+      font: inherit;
+    }
 
-    /* ── Hero ── */
+    .page-shell {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .page-shell::before,
+    .page-shell::after {
+      content: "";
+      position: absolute;
+      inset: auto;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page-shell::before {
+      top: -18vh;
+      right: -14vw;
+      width: 44vw;
+      height: 44vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(214, 179, 106, 0.08), transparent 68%);
+    }
+
+    .page-shell::after {
+      left: -14vw;
+      bottom: -18vh;
+      width: 50vw;
+      height: 50vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(103, 124, 160, 0.08), transparent 70%);
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
     .hero {
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 4rem 0;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(ellipse at 30% 50%, rgba(214,179,106,0.06) 0%, transparent 60%),
-                  radial-gradient(ellipse at 70% 50%, rgba(214,179,106,0.04) 0%, transparent 60%);
-      pointer-events: none;
-    }
-    .hero-label {
-      font: 500 11px/1.2 Arial, sans-serif;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-    }
-    .hero h1 {
-      font-size: clamp(2.2rem, 6vw, 3.8rem);
-      line-height: 1.04;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 0.5rem;
-    }
-    .hero .accent {
-      color: var(--gold);
-    }
-    .hero h2 {
-      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-      font-weight: 400;
-      color: #d7deea;
-      margin-bottom: 2rem;
-      max-width: 600px;
-    }
-    .hero-cta {
-      display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      background: linear-gradient(180deg, var(--gold), #b99347);
-      color: #14110a;
-      font: 600 14px/1 Arial, sans-serif;
-      padding: 14px 24px;
-      border-radius: 14px;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      border: 1px solid #c9a65d;
-      cursor: pointer;
-      width: fit-content;
-    }
-    .hero-cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(214,179,106,0.3);
+      justify-content: center;
+      padding: 3rem 0;
     }
 
-    /* ── Diagnostic Signs ── */
-    .diagnostic { padding: 5rem 0 3rem; }
-    .diagnostic-header { margin-bottom: 3rem; }
-    .diagnostic-header h2 {
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      color: #fff;
-      margin-bottom: 0.75rem;
+    .hero-inner {
+      width: 100%;
+      max-width: 780px;
     }
-    .diagnostic-header p { color: var(--muted); font-size: 1.05rem; }
 
-    .sign {
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      border-radius: 20px;
-      padding: 1.75rem 2rem 1.75rem 3.5rem;
-      margin-bottom: 1rem;
-      position: relative;
-      transition: border-color 0.3s ease, background 0.3s ease;
+    .eyebrow {
+      margin: 0 0 1.3rem;
+      color: var(--muted);
+      font: 500 12px/1 Arial, sans-serif;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
     }
-    .sign:hover {
-      border-color: rgba(214,179,106,.3);
-      background: linear-gradient(180deg, rgba(214,179,106,.08), rgba(214,179,106,.03));
+
+    .hero-title {
+      margin: 0;
+      font-size: clamp(3rem, 8vw, 6.4rem);
+      line-height: 0.96;
+      font-weight: 700;
+      letter-spacing: 0;
     }
-    .sign-number {
-      position: absolute;
-      left: 1.25rem;
-      top: 1.75rem;
-      font: 600 12px/1.2 Arial, sans-serif;
+
+    .hero-title .accent {
       color: var(--gold);
     }
-    .sign h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 0.5rem;
-    }
-    .sign p {
-      font-size: 0.92rem;
-      color: var(--muted);
-      line-height: 1.7;
+
+    .hero-subtitle {
+      margin: 1.2rem 0 2.1rem;
+      max-width: 720px;
+      color: #d7deea;
+      font-size: clamp(1.25rem, 2.8vw, 2rem);
+      line-height: 1.28;
     }
 
-    /* ── Transition ── */
-    .transition {
-      text-align: center;
-      padding: 4rem 0;
-      position: relative;
-    }
-    .transition::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 1px;
-      height: 3rem;
-      background: linear-gradient(to bottom, transparent, var(--line));
-    }
-    .transition p {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--text);
-      max-width: 550px;
-      margin: 0 auto 0.5rem;
-    }
-    .transition .sub {
-      font-size: 0.92rem;
-      color: var(--muted);
-      font-weight: 400;
-    }
-
-    /* ── Sofia Concierge Nudge ── */
-    .sofia-nudge {
+    .hero-actions {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 1rem 1.5rem;
-      margin: 1rem auto;
-      max-width: 640px;
-      border: 1px solid rgba(214,179,106,.15);
-      border-radius: 100px;
-      background: rgba(214,179,106,.04);
-      font-size: 0.85rem;
-      color: var(--muted);
+      gap: 1rem;
       flex-wrap: wrap;
-      text-align: center;
     }
-    .sofia-nudge strong {
-      color: var(--gold2);
-      font-weight: 600;
-    }
-    .sofia-icon {
+
+    .hero-cta,
+    .modal-cta,
+    .modal-link {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: linear-gradient(180deg, var(--gold), #b99347);
-      color: #14110a;
-      font-size: 12px;
-      flex-shrink: 0;
-    }
-    .sofia-nudge-link {
-      color: var(--gold);
-      text-decoration: none;
-      font: 600 13px/1 Arial, sans-serif;
-      white-space: nowrap;
-      transition: color 0.2s;
-    }
-    .sofia-nudge-link:hover {
-      color: var(--gold2);
-    }
-
-    /* ── CTA Section ── */
-    .cta-section {
-      padding: 4rem 0 5rem;
-      text-align: center;
-    }
-    .cta-card {
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      border-radius: 28px;
-      padding: 3rem 2.5rem;
-      max-width: 640px;
-      margin: 0 auto;
-    }
-    .cta-card h3 {
-      font-size: 1.3rem;
-      color: #fff;
-      margin-bottom: 0.75rem;
-    }
-    .cta-card p {
-      color: var(--muted);
-      font-size: 0.95rem;
-      margin-bottom: 2rem;
-    }
-    .cta-button {
-      display: inline-flex;
-      align-items: center;
       gap: 0.5rem;
-      background: linear-gradient(180deg, var(--gold), #b99347);
-      color: #14110a;
-      font: 600 14px/1 Arial, sans-serif;
-      padding: 14px 24px;
-      border-radius: 14px;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      border: 1px solid #c9a65d;
+      border-radius: 18px;
+      border: 1px solid transparent;
+      font: 700 15px/1 Arial, sans-serif;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease, border-color 0.2s ease;
       cursor: pointer;
     }
-    .cta-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(214,179,106,0.3);
+
+    .hero-cta,
+    .modal-cta {
+      padding: 1.05rem 1.45rem;
+      background: linear-gradient(180deg, var(--gold), var(--gold-deep));
+      color: #171109;
+      border-color: #caa75d;
+      box-shadow: 0 18px 38px rgba(214, 179, 106, 0.2);
     }
 
-    /* ── Brochure Link ── */
-    .brochure-link-wrap {
-      margin-top: 2rem;
-    }
-    .brochure-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: linear-gradient(180deg, var(--gold), #b99347);
-      color: #14110a;
-      font: 600 15px/1 Arial, sans-serif;
-      padding: 16px 32px;
-      border-radius: 14px;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      border: 1px solid #c9a65d;
-    }
-    .brochure-link:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(214,179,106,0.3);
-    }
-    .brochure-link .arrow {
-      font-size: 18px;
-      line-height: 1;
+    .hero-cta:hover,
+    .modal-cta:hover:not(:disabled),
+    .modal-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22);
     }
 
-    /* ── Mirror Call Section ── */
-    .mirror-section {
-      padding: 5rem 0;
-      position: relative;
-    }
-    .mirror-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 1px;
-      height: 3rem;
-      background: linear-gradient(to bottom, transparent, var(--line));
-    }
-    .mirror-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
-      margin-top: 2.5rem;
-    }
-    .mirror-info h3 {
-      font-size: 1.5rem;
-      color: #fff;
-      margin-bottom: 1rem;
-    }
-    .mirror-info p {
+    .hero-note {
       color: var(--muted);
-      font-size: 0.95rem;
-      line-height: 1.7;
-      margin-bottom: 1.25rem;
-    }
-    .mirror-info ul {
-      list-style: none;
-      padding: 0;
-    }
-    .mirror-info ul li {
-      color: var(--muted);
-      font-size: 0.9rem;
-      padding: 0.5rem 0;
-      padding-left: 1.5rem;
-      position: relative;
-    }
-    .mirror-info ul li::before {
-      content: '→';
-      position: absolute;
-      left: 0;
-      color: var(--gold);
-    }
-    .mirror-price {
-      display: inline-block;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--gold2);
-      background: rgba(214,179,106,0.08);
-      border: 1px solid rgba(214,179,106,0.2);
-      padding: 0.35rem 0.9rem;
-      border-radius: 100px;
-      margin: 0.75rem 0 1.25rem;
+      font-size: 0.92rem;
     }
 
-    /* ── Booking Card ── */
-    .booking-card {
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      border-radius: 28px;
-      padding: 2.5rem 2rem;
-    }
-    .booking-card h4 {
-      font-size: 1.1rem;
-      color: #fff;
-      margin-bottom: 1.5rem;
-      text-align: center;
-    }
-    .booking-step {
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
       display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      background: rgba(7, 10, 15, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 10;
     }
-    .booking-step.active { display: block; }
 
-    /* Step 1: Stripe CTA */
-    .stripe-btn {
-      display: block;
-      width: 100%;
-      text-align: center;
-      background: linear-gradient(180deg, var(--gold), #b99347);
-      color: #14110a;
-      font: 600 14px/1 Arial, sans-serif;
-      padding: 14px 18px;
-      border-radius: 14px;
-      border: 1px solid #c9a65d;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
+    .modal-backdrop.open {
+      display: flex;
     }
-    .stripe-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(214,179,106,0.3);
-    }
-    .stripe-btn .small { display: block; font-size: 0.75rem; font-weight: 400; opacity: 0.8; margin-top: 0.25rem; }
 
-    /* Step 2: Date/Time Picker */
-    .cal-input-group {
-      margin-bottom: 1rem;
+    .modal-card {
+      width: min(760px, 100%);
+      max-height: min(84vh, 860px);
+      overflow: auto;
+      border: 1px solid var(--panel-line);
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(18, 24, 34, 0.98), rgba(11, 15, 23, 0.98));
+      box-shadow: var(--shadow);
+      padding: 1.4rem 1.4rem 1.2rem;
     }
-    .cal-input-group label {
-      display: block;
-      font-size: 0.78rem;
-      color: var(--gold2);
-      margin-bottom: 0.4rem;
-      font: 600 11px/1.2 Arial, sans-serif;
+
+    .modal-top {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.15rem;
+    }
+
+    .modal-badge {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(214, 179, 106, 0.24);
+      border-radius: 999px;
+      padding: 0.38rem 0.72rem;
+      color: var(--gold-soft);
+      background: rgba(214, 179, 106, 0.08);
+      font: 600 11px/1 Arial, sans-serif;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      margin-bottom: 0.9rem;
     }
-    .cal-input-group input,
-    .cal-input-group select {
-      width: 100%;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 0.85rem 1rem;
-      font: 14px/1.4 Georgia, "Times New Roman", serif;
-      color: var(--text);
-      outline: none;
-      transition: border-color 0.3s ease;
+
+    .modal-title {
+      margin: 0 0 0.35rem;
+      color: #fff;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      line-height: 1.05;
     }
-    .cal-input-group input:focus,
-    .cal-input-group select:focus { border-color: rgba(214,179,106,.4); }
-    .cal-input-group select option { background: var(--panel); color: var(--text); }
-    .book-submit {
-      width: 100%;
-      text-align: center;
-      background: linear-gradient(180deg, var(--gold), #b99347);
-      color: #14110a;
-      font: 600 14px/1 Arial, sans-serif;
-      padding: 14px 18px;
-      border-radius: 14px;
-      border: 1px solid #c9a65d;
+
+    .modal-copy {
+      margin: 0;
+      color: var(--muted);
+      max-width: 560px;
+      font-size: 0.98rem;
+    }
+
+    .modal-close {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      border: 1px solid var(--panel-line);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      font: 700 18px/1 Arial, sans-serif;
       cursor: pointer;
-      transition: all 0.3s ease;
-      margin-top: 0.5rem;
+      flex: 0 0 auto;
     }
-    .book-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(214,179,106,0.3);
+
+    .modal-close:hover {
+      border-color: rgba(214, 179, 106, 0.28);
+      color: var(--gold-soft);
     }
-    .book-submit:disabled {
-      opacity: 0.6;
+
+    .sign-list {
+      display: grid;
+      gap: 0.8rem;
+      margin: 1.2rem 0 0;
+    }
+
+    .sign-card {
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
+      padding: 1rem 1rem 1rem 3.2rem;
+    }
+
+    .sign-number {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      color: var(--gold);
+      font: 700 11px/1 Arial, sans-serif;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .sign-card h3 {
+      margin: 0 0 0.3rem;
+      color: #fff;
+      font-size: 1.02rem;
+      line-height: 1.24;
+    }
+
+    .sign-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    .modal-footer {
+      position: sticky;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      background: linear-gradient(180deg, rgba(11, 15, 23, 0), rgba(11, 15, 23, 0.92) 24%, rgba(11, 15, 23, 0.98) 100%);
+    }
+
+    .modal-timer {
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .modal-cta {
+      min-width: 190px;
+    }
+
+    .modal-cta:disabled {
       cursor: not-allowed;
+      opacity: 0.56;
       transform: none;
+      box-shadow: none;
     }
-    .booking-status {
-      font-size: 0.85rem;
-      margin-top: 0.75rem;
-      text-align: center;
-      min-height: 1.5rem;
-    }
-    .booking-status.success { color: #6bcb6b; }
-    .booking-status.error { color: #ff6b6b; }
-    .booking-status.info { color: var(--muted); }
 
-    /* ── Footer ── */
-    footer {
-      padding: 2rem 0 3rem;
-      text-align: center;
-      border-top: 1px solid var(--line);
+    .modal-link {
+      padding: 0.95rem 1.2rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-color: var(--panel-line);
+      color: var(--text);
     }
-    footer p {
-      font-size: 0.8rem;
+
+    .footer-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
+      padding: 0 1rem 1rem;
+      pointer-events: none;
+    }
+
+    .footer-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.95rem 1rem;
+      border: 1px solid rgba(214, 179, 106, 0.14);
+      border-radius: 16px;
+      background: rgba(11, 15, 23, 0.72);
       color: var(--muted);
+      font-size: 0.82rem;
+      backdrop-filter: blur(8px);
+      pointer-events: auto;
     }
-    footer a {
-      color: var(--muted);
-      text-decoration: none;
-    }
-    footer a:hover { color: var(--gold2); }
 
-    /* ── Animations ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
+    .footer-inner a {
+      color: var(--gold-soft);
     }
-    .animate-in {
-      animation: fadeUp 0.6s ease forwards;
-      opacity: 0;
-    }
-    .delay-1 { animation-delay: 0.1s; }
-    .delay-2 { animation-delay: 0.2s; }
-    .delay-3 { animation-delay: 0.3s; }
-    .delay-4 { animation-delay: 0.4s; }
-    .delay-5 { animation-delay: 0.5s; }
 
-    /* ── Responsive ── */
-    @media (max-width: 640px) {
-      .sign { padding: 1.5rem 1.5rem 1.5rem 2.5rem; }
-      .sign-number { left: 0.75rem; top: 1.5rem; }
-      .cta-card { padding: 2rem 1.5rem; }
-      .hero { min-height: auto; padding: 3rem 0; }
-      .mirror-grid { grid-template-columns: 1fr; }
-      .booking-card { padding: 1.5rem; }
-      .sofia-nudge { border-radius: 16px; padding: 0.85rem 1.25rem; }
+    @media (max-width: 720px) {
+      body {
+        overflow: auto;
+      }
+
+      .hero {
+        align-items: start;
+        padding-top: 6rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.15rem;
+      }
+
+      .modal-card {
+        padding: 1.1rem 1rem 1rem;
+      }
+
+      .modal-top,
+      .modal-footer,
+      .footer-inner {
+        flex-direction: column;
+        align-items: start;
+      }
+
+      .modal-close {
+        align-self: end;
+      }
+
+      .modal-cta,
+      .modal-link {
+        width: 100%;
+      }
+
+      .footer-bar {
+        position: static;
+        padding: 0 1rem 1rem;
+      }
+
+      .footer-inner {
+        margin-top: -1rem;
+      }
     }
   </style>
 </head>
 <body>
-
-  <!-- ════════════════════════════════════════════
-       HERO
-  ════════════════════════════════════════════════ -->
-  <section class="hero">
-    <div class="container">
-        <div class="hero-label animate-in">Free Scorecard</div>
-        <h1 class="animate-in delay-1">
-        <span class="accent">Clarity</span> Scorecard
-        </h1>
-        <h2 class="animate-in delay-2">
-        Find where work is slowing down before it turns into more delay and confusion.
-        </h2>
-        <a href="#diagnostic" class="hero-cta animate-in delay-3">
-        Take the Scorecard →
-        </a>
-    </div>
-  </section>
-
-  <!-- ════════════════════════════════════════════
-       DIAGNOSTIC SIGNS
-  ════════════════════════════════════════════════ -->
-  <section class="diagnostic" id="diagnostic">
-    <div class="container">
-      <div class="diagnostic-header">
-        <div class="badge">Scorecard</div>
-        <h2>The 5 warning signs</h2>
-        <p>Read each one. If it feels familiar, that is the one to watch.</p>
-      </div>
-
-      <!-- Sign 01 -->
-      <div class="sign">
-        <span class="sign-number">01</span>
-        <h3>Slow decisions</h3>
-        <p>How long does it take between a decision and action? If it takes too long, the business loses speed.</p>
-      </div>
-
-      <!-- Sign 02 -->
-      <div class="sign">
-        <span class="sign-number">02</span>
-        <h3>Mixed roles</h3>
-        <p>Ask three people who owns the work. If you get different answers, the problem is not execution. It is unclear ownership.</p>
-      </div>
-
-      <!-- Sign 03 -->
-      <div class="sign">
-        <span class="sign-number">03</span>
-        <h3>Too many priorities</h3>
-        <p>How many priorities does each person carry? If there are too many, focus gets lost and work slows down.</p>
-      </div>
-
-      <!-- Sign 04 -->
-      <div class="sign">
-        <span class="sign-number">04</span>
-        <h3>Same fires repeat</h3>
-        <p>The same problem keeps coming back. That is a sign the root cause has not been fixed.</p>
-      </div>
-
-      <!-- Sign 05 -->
-      <div class="sign">
-        <span class="sign-number">05</span>
-        <h3>No clear owner</h3>
-        <p>When pressure hits, who decides? If the answer changes, people lose time waiting for direction.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════════════════════════════════════════
-       TRANSITION
-  ════════════════════════════════════════════════ -->
-  <div class="container">
-    <div class="transition">
-        <p>One or more of these feel familiar?</p>
-        <p class="sub">That is not a strategy gap. That is a <strong style="color:#eef2f7;">clarity problem</strong>.</p>
-        <p class="sub" style="margin-top: 0.5rem; font-size: 1rem; color: var(--gold2);">What everyone wants is <strong>speed</strong>. Clarity gives speed.</p>
-    </div>
-  </div>
-
-  <!-- ════════════════════════════════════════════
-       SOFIA — SUBTLE CONCIERGE NUDGE
-  ════════════════════════════════════════════════ -->
-  <div class="container">
-    <div class="sofia-nudge">
-      <span class="sofia-icon">✦</span>
-      <span>The signs are clear. Your next move is not. <strong>Sofia</strong> can show you the cost.</span>
-      <a href="#" class="sofia-nudge-link" id="sofia-trigger">Ask Sofia what these signs cost</a>
-    </div>
-  </div>
-
-  <!-- ════════════════════════════════════════════
-       MIRROR CALL
-  ════════════════════════════════════════════════ -->
-  <section class="mirror-section" id="mirror-call">
-    <div class="container">
-      <div style="text-align:center;">
-        <div class="badge">ClarityOS Mirror Call</div>
-        <h2 style="font-size: clamp(1.6rem, 4vw, 2.4rem); color: #fff; margin-bottom: 0.75rem;">
-          Stop guessing. <span class="accent">Get clarity.</span>
-        </h2>
-        <p style="color: var(--muted); font-size: 1.05rem; max-width: 520px; margin: 0 auto;">
-          You just named five problem areas. One of them will be the main one. A Mirror Call turns that into a clear diagnosis and next step.
-        </p>
-      </div>
-
-      <div class="mirror-grid">
-        <!-- Left: Info -->
-        <div class="mirror-info">
-          <h3>What you get</h3>
-          <ul>
-            <li>A clear review of how decisions are made now</li>
-            <li>Your main blocker identified</li>
-            <li>A simple ClarityOS next-step plan</li>
-            <li>Clear rules for ownership and action</li>
-            <li>A follow-up report with the next move</li>
-          </ul>
-          <div class="mirror-price">One-time investment · $79</div>
-          <p style="font-size:0.85rem;">
-            This is not coaching. It is a practical reset for how your team works and decides.
-          </p>
-        </div>
-
-        <!-- Right: Booking Card -->
-        <div class="booking-card">
-          <h4>Book Your Mirror Call</h4>
-
-          <!-- Step 1: Stripe Payment -->
-          <div class="booking-step active" id="booking-step-1">
-            <p style="color:var(--muted); font-size:0.85rem; margin-bottom:1.5rem; text-align:center;">
-              Pay through Stripe. Your session is confirmed after payment.
-            </p>
-            <a href="https://buy.stripe.com/00w28q41PdjveV2bfWcV201" target="_blank" class="stripe-btn" id="stripe-btn">
-              Pay $79 &amp; Book Your Mirror Call
-              <span class="small">Secure checkout powered by Stripe</span>
-            </a>
-            <p style="color:var(--muted); font-size:0.75rem; margin-top:1rem; text-align:center;">
-              After payment, you can choose your date and time.
-            </p>
-          </div>
-
-          <!-- Step 2: Date/Time Selection -->
-          <div class="booking-step" id="booking-step-2">
-            <div class="cal-input-group">
-              <label for="book-name">Your Name</label>
-              <input type="text" id="book-name" placeholder="Enter your name" autocomplete="name">
-            </div>
-            <div class="cal-input-group">
-              <label for="book-email">Email Address</label>
-              <input type="email" id="book-email" placeholder="Enter your email" required autocomplete="email">
-            </div>
-            <div class="cal-input-group">
-              <label for="book-phone">Phone (optional)</label>
-              <input type="tel" id="book-phone" placeholder="+971 XX XXX XXXX" autocomplete="tel">
-            </div>
-            <div class="cal-input-group">
-              <label for="book-date">Preferred Date</label>
-              <input type="date" id="book-date" min="">
-            </div>
-            <div class="cal-input-group">
-              <label for="book-time">Preferred Time</label>
-              <select id="book-time">
-                <option value="">Select a time slot</option>
-                <option value="09:00">09:00 — 10:00 (GCC morning)</option>
-                <option value="10:00">10:00 — 11:00</option>
-                <option value="11:00">11:00 — 12:00</option>
-                <option value="12:00">12:00 — 13:00</option>
-                <option value="14:00">14:00 — 15:00 (GCC afternoon)</option>
-                <option value="15:00">15:00 — 16:00</option>
-                <option value="16:00">16:00 — 17:00</option>
-                <option value="17:00">17:00 — 18:00</option>
-                <option value="18:00">18:00 — 19:00</option>
-                <option value="19:00">19:00 — 20:00</option>
-              </select>
-            </div>
-            <button type="button" class="book-submit" id="book-submit-btn">
-              Confirm Booking →
-            </button>
-            <div id="booking-status" class="booking-status"></div>
-            <p style="color:var(--muted); font-size:0.75rem; margin-top:0.75rem; text-align:center;">
-              You'll receive a confirmation email with a calendar invite and Google Meet link.
-            </p>
+  <main class="page-shell">
+    <section class="hero">
+      <div class="container">
+        <div class="hero-inner">
+          <p class="eyebrow">Five signs</p>
+          <h1 class="hero-title"><span class="accent">Clarity</span> Signs</h1>
+          <p class="hero-subtitle">See the five signs before you move to the test page.</p>
+          <div class="hero-actions">
+            <button class="hero-cta" id="open-signs" type="button">See the signs →</button>
+            <span class="hero-note">Read first. Then move to the test.</span>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ════════════════════════════════════════════
-       CTA — BROCHURE
-  ════════════════════════════════════════════════ -->
-  <section class="cta-section">
-    <div class="container">
-      <div class="cta-card">
-          <h3>See the full scorecard report.</h3>
-          <p>
-          The complete Clarity Scorecard, laid out as a simple report — enter your email to unlock it.
-          </p>
-        <div class="brochure-link-wrap">
-          <a href="/brochure" class="brochure-link">
-            View the Scorecard Report <span class="arrow">→</span>
-          </a>
+    <div class="modal-backdrop" id="signs-modal" aria-hidden="true">
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="signs-title">
+        <div class="modal-top">
+          <div>
+            <div class="modal-badge">Five signs</div>
+            <h2 class="modal-title" id="signs-title">Read the signs before you test the pattern.</h2>
+            <p class="modal-copy">If more than one feels familiar, that is fine. The next page will help show which one is carrying the most pressure.</p>
+          </div>
+          <button class="modal-close" id="close-signs" type="button" aria-label="Close">×</button>
+        </div>
+
+        <div class="sign-list">
+          <article class="sign-card">
+            <span class="sign-number">01</span>
+            <h3>Decision drag</h3>
+            <p>If decisions are made but action still slows down, the issue is usually the path from decision to execution.</p>
+          </article>
+
+          <article class="sign-card">
+            <span class="sign-number">02</span>
+            <h3>Ownership drift</h3>
+            <p>If ownership changes when pressure rises, the system is leaning on informal rescue instead of stable accountability.</p>
+          </article>
+
+          <article class="sign-card">
+            <span class="sign-number">03</span>
+            <h3>Priority overload</h3>
+            <p>If everyone is carrying too many live priorities, the team stays busy but the real bottleneck never gets simpler.</p>
+          </article>
+
+          <article class="sign-card">
+            <span class="sign-number">04</span>
+            <h3>Repeat fires</h3>
+            <p>If the same issue keeps coming back, the fix is living in memory or effort, not inside a repeatable operating rule.</p>
+          </article>
+
+          <article class="sign-card">
+            <span class="sign-number">05</span>
+            <h3>Hero dependency</h3>
+            <p>If progress depends on one person stepping in personally, the team may be running on heroics rather than system strength.</p>
+          </article>
+        </div>
+
+        <div class="modal-footer">
+          <div class="modal-timer" id="modal-timer">Take the test unlocks in 5s.</div>
+          <button class="modal-cta" id="take-test" type="button" disabled>Take the test now</button>
         </div>
       </div>
     </div>
-  </section>
+  </main>
 
-  <!-- ════════════════════════════════════════════
-       FOOTER
-  ════════════════════════════════════════════════ -->
-  <footer>
-    <div class="container">
-      <p>
-        Zeeshan Sabri · <a href="https://clarity-os.com" target="_blank">ClarityOS</a> · Free Scorecard<br>
-        <a href="mailto:clarityos@global-mkts.com">clarityos@global-mkts.com</a>
-      </p>
-      <p style="margin-top: 0.75rem; font-style: italic; color: #555577;">
-        Clarity is not a communication problem. It is a work-flow problem. Fix the system underneath.
-      </p>
+  <div class="footer-bar">
+    <div class="footer-inner">
+      <span>Zeeshan Sabri · ClarityOS · Five signs</span>
+      <a href="#" id="sofia-trigger">Ask Sofia what these signs cost</a>
     </div>
-  </footer>
+  </div>
 
-  <!-- ════════════════════════════════════════════
-       APP JAVASCRIPT
-  ════════════════════════════════════════════════ -->
   <script>
-    // ── Mirror Call: Stripe → Calendar Booking Flow ──
-    const stripeBtn = document.getElementById('stripe-btn');
-    const step1 = document.getElementById('booking-step-1');
-    const step2 = document.getElementById('booking-step-2');
-    const bookSubmitBtn = document.getElementById('book-submit-btn');
-    const bookName = document.getElementById('book-name');
-    const bookEmail = document.getElementById('book-email');
-    const bookPhone = document.getElementById('book-phone');
-    const bookDate = document.getElementById('book-date');
-    const bookTime = document.getElementById('book-time');
-    const bookingStatus = document.getElementById('booking-status');
+    const openSignsBtn = document.getElementById('open-signs');
+    const closeSignsBtn = document.getElementById('close-signs');
+    const signsModal = document.getElementById('signs-modal');
+    const takeTestBtn = document.getElementById('take-test');
+    const modalTimer = document.getElementById('modal-timer');
+    const sofiaTrigger = document.getElementById('sofia-trigger');
 
-    // Set min date to tomorrow
-    if (bookDate) {
-      const tomorrow = new Date();
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      bookDate.min = tomorrow.toISOString().split('T')[0];
-      // Set default to tomorrow
-      bookDate.value = tomorrow.toISOString().split('T')[0];
+    let unlockTimerId = null;
+    let remainingSeconds = 5;
+
+    function updateTimerText() {
+      if (remainingSeconds > 0) {
+        modalTimer.textContent = `Take the test unlocks in ${remainingSeconds}s.`;
+        return;
+      }
+      modalTimer.textContent = 'You can move to the test now.';
     }
 
-    // When Stripe button is clicked, open Stripe checkout in new tab
-    if (stripeBtn) {
-      stripeBtn.addEventListener('click', (e) => {
-        sessionStorage.setItem('mirror-call-payment-started', 'true');
-      });
-    }
-
-    // After Stripe payment, user comes back. Manual "I've paid" trigger
-    const alreadyPaid = document.createElement('p');
-    alreadyPaid.style.cssText = 'text-align:center; margin-top:0.75rem;';
-    alreadyPaid.innerHTML = '<a href="#" id="already-paid-link" style="color:var(--gold); font-size:0.8rem; text-decoration:none;">Already paid? Click here to choose your time →</a>';
-
-    if (step1) {
-      const afterText = step1.querySelector('p:last-child');
-      if (afterText) {
-        afterText.after(alreadyPaid);
+    function stopUnlockTimer() {
+      if (unlockTimerId) {
+        clearInterval(unlockTimerId);
+        unlockTimerId = null;
       }
     }
 
-    document.addEventListener('click', (e) => {
-      if (e.target.id === 'already-paid-link') {
-        e.preventDefault();
-        step1.classList.remove('active');
-        step2.classList.add('active');
+    function startUnlockTimer() {
+      stopUnlockTimer();
+      remainingSeconds = 5;
+      takeTestBtn.disabled = true;
+      updateTimerText();
+
+      unlockTimerId = window.setInterval(() => {
+        remainingSeconds -= 1;
+        updateTimerText();
+
+        if (remainingSeconds <= 0) {
+          stopUnlockTimer();
+          takeTestBtn.disabled = false;
+        }
+      }, 1000);
+    }
+
+    function openModal() {
+      signsModal.classList.add('open');
+      signsModal.setAttribute('aria-hidden', 'false');
+      startUnlockTimer();
+    }
+
+    function closeModal() {
+      signsModal.classList.remove('open');
+      signsModal.setAttribute('aria-hidden', 'true');
+      stopUnlockTimer();
+    }
+
+    if (openSignsBtn) {
+      openSignsBtn.addEventListener('click', openModal);
+    }
+
+    if (closeSignsBtn) {
+      closeSignsBtn.addEventListener('click', closeModal);
+    }
+
+    if (signsModal) {
+      signsModal.addEventListener('click', (event) => {
+        if (event.target === signsModal) {
+          closeModal();
+        }
+      });
+    }
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && signsModal.classList.contains('open')) {
+        closeModal();
       }
     });
 
-    // Date/Time validation
-    if (bookDate) {
-      bookDate.addEventListener('change', () => {
-        const selected = new Date(bookDate.value);
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        tomorrow.setHours(0, 0, 0, 0);
-        if (selected < tomorrow) {
-          bookDate.value = tomorrow.toISOString().split('T')[0];
-        }
+    if (takeTestBtn) {
+      takeTestBtn.addEventListener('click', () => {
+        window.location.href = 'brochure.html';
       });
     }
 
-    // Submit booking
-    if (bookSubmitBtn) {
-      bookSubmitBtn.addEventListener('click', async () => {
-        const name = bookName.value.trim();
-        const email = bookEmail.value.trim();
-        const phone = bookPhone.value.trim();
-        const date = bookDate.value;
-        const time = bookTime.value;
-
-        if (!name) {
-          bookingStatus.className = 'booking-status error';
-          bookingStatus.textContent = 'Please enter your name.';
-          bookName.focus();
-          return;
-        }
-        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          bookingStatus.className = 'booking-status error';
-          bookingStatus.textContent = 'Please enter a valid email address.';
-          bookEmail.focus();
-          return;
-        }
-        if (!date) {
-          bookingStatus.className = 'booking-status error';
-          bookingStatus.textContent = 'Please select a date.';
-          bookDate.focus();
-          return;
-        }
-        if (!time) {
-          bookingStatus.className = 'booking-status error';
-          bookingStatus.textContent = 'Please select a time slot.';
-          bookTime.focus();
-          return;
-        }
-
-        bookSubmitBtn.disabled = true;
-        bookSubmitBtn.textContent = 'Booking...';
-        bookingStatus.className = 'booking-status info';
-        bookingStatus.textContent = 'Submitting your booking...';
-
-        try {
-          const res = await fetch('/book', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              name,
-              email,
-              phone,
-              date,
-              time,
-              timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-              stripeSessionId: sessionStorage.getItem('mirror-call-stripe-session') || 'completed',
-            }),
-          });
-
-          const data = await res.json();
-
-          if (res.ok && data.success) {
-            bookingStatus.className = 'booking-status success';
-            bookingStatus.textContent = '✓ Mirror Call booked! Check your email for confirmation and calendar invite.';
-            bookSubmitBtn.textContent = '✓ Booked!';
-            sessionStorage.removeItem('mirror-call-payment-started');
-          } else {
-            bookingStatus.className = 'booking-status error';
-            bookingStatus.textContent = data.error || 'Booking failed. Please try again.';
-            bookSubmitBtn.disabled = false;
-            bookSubmitBtn.textContent = 'Confirm Booking →';
-          }
-        } catch (err) {
-          bookingStatus.className = 'booking-status error';
-          bookingStatus.textContent = 'Network error. Please try again or email clarityos@global-mkts.com.';
-          bookSubmitBtn.disabled = false;
-          bookSubmitBtn.textContent = 'Confirm Booking →';
-        }
-      });
-    } // ← close the if(bookSubmitBtn) block
-    // ── Sofia CTA: Scroll to bottom & highlight the concierge widget ──
-    const sofiaTrigger = document.getElementById('sofia-trigger');
     if (sofiaTrigger) {
-      sofiaTrigger.addEventListener('click', (e) => {
-        e.preventDefault();
-        // Scroll to the very bottom of the page where Sofia's widget lives
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-
-        // Try to find and pulse the Sofia widget button
+      sofiaTrigger.addEventListener('click', (event) => {
+        event.preventDefault();
         const findAndPulse = setInterval(() => {
-          // The lasio widget creates an iframe — try to find any clickable element near the bottom-right
           const widgetBtn = document.querySelector('[class*="widget"], [id*="widget"], iframe[src*="lasio"]');
           if (widgetBtn) {
             widgetBtn.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
-            widgetBtn.style.transform = 'scale(1.15)';
-            widgetBtn.style.boxShadow = '0 0 30px rgba(214, 179, 106, 0.6)';
+            widgetBtn.style.transform = 'scale(1.12)';
+            widgetBtn.style.boxShadow = '0 0 30px rgba(214, 179, 106, 0.55)';
             setTimeout(() => {
               widgetBtn.style.transform = 'scale(1)';
               widgetBtn.style.boxShadow = 'none';
@@ -887,27 +576,12 @@
             clearInterval(findAndPulse);
           }
         }, 500);
-        // Stop trying after 5 seconds
+
         setTimeout(() => clearInterval(findAndPulse), 5000);
       });
     }
   </script>
 
-  <!-- ════════════════════════════════════════════
-       SOFIA CLARITYOS CONCIERGE WIDGET
-  ════════════════════════════════════════════════ -->
   <script src="https://lasio.ai/widget.js?id=141&api_key=wk_3c4b2b9c733c09add3e0dace740868b6e63aae48aa2df360f71d940cace38738"></script>
-
-  <style>
-    /* Pulse animation for Sofia widget highlight */
-    @keyframes sofia-pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(214, 179, 106, 0.4); }
-      50% { box-shadow: 0 0 0 12px rgba(214, 179, 106, 0); }
-    }
-    .sofia-highlight {
-      animation: sofia-pulse 1.2s ease 3;
-    }
-  </style>
-
 </body>
 </html>

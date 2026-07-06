@@ -37,7 +37,7 @@ export async function onRequest(context) {
 
   try {
     const body = await request.json();
-    const { email, name, source, score, scoreBand, dominantLeak, summary } = body;
+    const { email, name, title, source, score, scoreBand, dominantLeak, summary, answers } = body;
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return new Response(
@@ -54,12 +54,14 @@ export async function onRequest(context) {
       type: 'lead-magnet',
       email: email,
       name: name || email.split('@')[0],
+      title: title || null,
       captured_at: new Date().toISOString(),
       page: 'Clarity Leak Scorecard',
       score: score ?? null,
       score_band: scoreBand || null,
       dominant_leak: dominantLeak || null,
       summary: summary || null,
+      answers: Array.isArray(answers) ? answers : [],
     };
 
     // Store in Cloudflare KV if bound
@@ -88,6 +90,7 @@ export async function onRequest(context) {
               `==================`,
               ``,
               `Name:   ${leadData.name}`,
+              `Title:  ${leadData.title || 'n/a'}`,
               `Email:  ${leadData.email}`,
               `Date:   ${leadData.captured_at}`,
               `Source: ${leadData.source}`,
@@ -95,6 +98,8 @@ export async function onRequest(context) {
               `Score:  ${leadData.score ?? 'n/a'}${leadData.score_band ? ` (${leadData.score_band})` : ''}`,
               `Leak:   ${leadData.dominant_leak || 'n/a'}`,
               `Note:   ${leadData.summary || 'n/a'}`,
+              `Answers:${leadData.answers.length ? '' : ' n/a'}`,
+              ...leadData.answers.map((entry) => `  - ${entry.question}: ${entry.answer}`),
               ``,
               `Action: Follow up with a personalized ClarityOS introduction and score-based diagnosis.`,
               ``,
