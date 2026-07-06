@@ -18,12 +18,22 @@ for (const target of copyTargets) {
 
 await mkdir(path.join(distDir, 'server'), { recursive: true });
 await mkdir(path.join(distDir, '.openai'), { recursive: true });
+await mkdir(path.join(distDir, 'server', 'functions'), { recursive: true });
+
+await cp(
+  path.join(rootDir, 'functions', 'submit.js'),
+  path.join(distDir, 'server', 'functions', 'submit.js')
+);
+await cp(
+  path.join(rootDir, 'functions', 'book.js'),
+  path.join(distDir, 'server', 'functions', 'book.js')
+);
 
 const indexHtml = await readFile(path.join(rootDir, 'index.html'), 'utf8');
 const brochureHtml = await readFile(path.join(rootDir, 'brochure.html'), 'utf8');
 
-const workerSource = `import { onRequest as handleSubmit } from '../functions/submit.js';
-import { onRequest as handleBook } from '../functions/book.js';
+const workerSource = `import { onRequest as handleSubmit } from './functions/submit.js';
+import { onRequest as handleBook } from './functions/book.js';
 
 const indexHtml = ${JSON.stringify(indexHtml)};
 const brochureHtml = ${JSON.stringify(brochureHtml)};
