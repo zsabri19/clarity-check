@@ -164,7 +164,7 @@ export async function onRequest(context) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           personalizations: [{ to: [{ email: 'clarityos@global-mkts.com' }] }],
-          from: { email: 'noreply@clarity-check.global-mkts.com', name: 'Mirror Call Booking' },
+          from: { email: 'noreply@clarity.global-mkts.com', name: 'Mirror Call Booking' },
           subject: `New Booking: ${displayName} — ${date} at ${time}`,
           content: [{ type: 'text/html', value: notifyHTML }],
         }),
