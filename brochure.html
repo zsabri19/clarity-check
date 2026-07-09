@@ -630,7 +630,7 @@
     }
 
     .report-section::before {
-      content: "clarityos";
+      content: "";
       position: absolute;
       inset: 40px 0 auto 0;
       text-align: center;
@@ -794,8 +794,8 @@
   <section class="hero">
     <div class="container">
       <div class="eyebrow">Start here</div>
-      <h1><span class="accent">Take</span> the test.</h1>
-      <p class="lead">Answer five short questions. Use the real business, not the ideal one.</p>
+      <h1><span class="accent">Check</span> your business.</h1>
+      <p class="lead">Answer five short questions. Choose what is true today, not what should be true.</p>
       <div class="pill-row">
         <div class="pill">Decision drag</div>
         <div class="pill">Ownership drift</div>
@@ -813,7 +813,7 @@
           <div class="eyebrow" style="margin-bottom:0.9rem;">5 questions</div>
           <h2>Answer the questions.</h2>
         </div>
-        <p>Choose the answer that fits today. Do not answer for the ideal version of the business.</p>
+        <p>Use the real situation. If it feels uncomfortable, it is probably useful.</p>
       </div>
 
       <div class="assessment-grid" id="questions"></div>
@@ -844,16 +844,16 @@
   <section class="gate" id="gate">
     <div class="container">
       <div class="gate-card">
-        <h2>Unlock your report</h2>
-        <p>Enter your name, title, and email. Your Clarity Mirror image preview will unlock immediately.</p>
+        <h2>Unlock your readout</h2>
+        <p>Enter your name, title, and email. You will see a simple readout of what your answers show.</p>
         <form class="gate-form" id="gate-form">
           <input class="gate-input" id="gate-name" type="text" placeholder="Your name" autocomplete="name">
           <input class="gate-input" id="gate-title" type="text" placeholder="Your title" autocomplete="organization-title">
           <input class="gate-input" id="gate-email" type="email" placeholder="Work email" autocomplete="email" required>
-          <button class="primary-btn" id="gate-btn" type="submit">Unlock the report</button>
+          <button class="primary-btn" id="gate-btn" type="submit">Unlock the readout</button>
         </form>
         <div id="gate-status" class="gate-status"></div>
-        <p style="font-size:0.8rem; color:var(--muted);">We capture your details for follow-up, and the same report shown here can be downloaded as an image.</p>
+        <p style="font-size:0.8rem; color:var(--muted);">We use your details for follow-up. You can also download the readout as an image.</p>
         <div id="download-area" class="hidden" style="margin-top:0.75rem;">
           <a class="secondary-btn" id="download-report-btn" href="#">Download</a>
         </div>
@@ -867,10 +867,10 @@
         <div class="report-shell">
           <div class="report-inner">
             <div class="report-hero">
-              <h2 id="report-title">Clarity Mirror</h2>
+              <h2 id="report-title">Your Clarity Readout</h2>
               <div class="report-rule"></div>
-              <p class="report-subline" id="report-summary">Identity Positioning &amp; Baseline Validation</p>
-              <p class="report-method" id="report-method">Diagnostic Assessment within the ClarityOS Framework</p>
+              <p class="report-subline" id="report-summary">What your answers show</p>
+              <p class="report-method" id="report-method">Five Signs Business Check</p>
             </div>
 
             <div class="report-identity-card">
@@ -878,37 +878,37 @@
               <h3 class="report-name" id="report-name">Your Name</h3>
               <p class="report-role" id="report-role">Your Title</p>
               <p class="report-line" id="report-line">your@email.com</p>
-              <p class="report-identity-note" id="report-identity-note"><strong>Core Identity:</strong> To be determined from your answers.</p>
+              <p class="report-identity-note" id="report-identity-note"><strong>Main issue:</strong> This will appear after you answer the questions.</p>
             </div>
 
             <section class="report-section">
-              <h3 class="report-section-title">Executive Summary</h3>
+              <h3 class="report-section-title">What This Means</h3>
               <div class="report-divider"></div>
               <p class="report-paragraph" id="report-meaning">You will see the main reason work is slowing down.</p>
-              <p class="report-paragraph" id="report-context">You will see the operating environment this pattern usually creates.</p>
-              <p class="report-paragraph" id="report-observed">You will see the strongest observed pattern from the answers.</p>
+              <p class="report-paragraph" id="report-context">You will see what this usually feels like inside a team.</p>
+              <p class="report-paragraph" id="report-observed">You will see the strongest sign from your answers.</p>
             </section>
 
             <section class="report-section">
-              <h3 class="report-section-title" id="report-core-heading">The Core Identity Observed (1.0)</h3>
+              <h3 class="report-section-title" id="report-core-heading">The Main Problem</h3>
               <div class="report-divider"></div>
-              <p class="report-paragraph" id="report-cost">You will see the business cost this pattern usually creates.</p>
-              <h4 class="report-subsection-title">Path Forward</h4>
+              <p class="report-paragraph" id="report-cost">You will see what this may be costing the business.</p>
+              <h4 class="report-subsection-title">First Step</h4>
               <p class="report-paragraph" id="report-fix">You will see the first action that can reduce the problem.</p>
-              <h4 class="report-subsection-title">Question Audit</h4>
-              <p class="report-paragraph" id="report-audit">You will see why the selected questions support this brief.</p>
+              <h4 class="report-subsection-title">Why This Result Appeared</h4>
+              <p class="report-paragraph" id="report-audit">You will see which answers pointed to this issue.</p>
             </section>
 
             <section class="report-section">
-              <h3 class="report-section-title">Selected Answers & Validation Notes</h3>
+              <h3 class="report-section-title">Your Answers</h3>
               <div class="report-divider"></div>
               <p class="report-paragraph" id="report-answers">Your selected answers will appear here.</p>
-              <p class="report-paragraph" id="report-story">A short real-world operating reflection will appear here.</p>
+              <p class="report-paragraph" id="report-story">A short real-world example will appear here.</p>
               <p class="report-paragraph" id="report-warning">You will see the move that usually makes it worse.</p>
             </section>
 
             <p class="report-footnote" id="report-footnote">
-              This baseline brief is a structured reflection, not an evaluation. It is designed to surface the operating pattern behind the visible symptom so the next step stays simple.
+              This is not a judgment. It is a simple readout to help you see what may be slowing the business down.
             </p>
           </div>
         </div>
@@ -920,8 +920,8 @@
     <div class="container">
       <div class="cta-card">
         <div>
-          <h2>If this still feels off, ask Sofia.</h2>
-          <p>Sofia can give you a second read before you book the call. If the pattern is real, the next step stays simple.</p>
+          <h2>If this feels familiar, ask Sofia.</h2>
+          <p>Sofia can help you think through what is happening before you book a call. If the issue is real, the next step should be simple.</p>
         </div>
         <a class="primary-btn" href="https://buy.stripe.com/00w28q41PdjveV2bfWcV201" target="_blank" rel="noreferrer">Book a Mirror Call</a>
       </div>
@@ -938,114 +938,114 @@
   <script>
     const reportBlueprint = {
       template: {
-        kicker: 'Clarity Mirror',
-        title: 'Clarity Mirror',
-        subtitle: 'Identity Positioning & Baseline Validation',
-        methodLine: 'Diagnostic Assessment within the ClarityOS Framework',
-        footnote: 'This baseline brief is a structured reflection, not an evaluation. It is designed to surface the operating pattern behind the visible symptom so the next step stays simple.',
+        kicker: 'Clarity Readout',
+        title: 'Your Clarity Readout',
+        subtitle: 'What your answers show',
+        methodLine: 'Five Signs Business Check',
+        footnote: 'This is not a judgment. It is a simple readout to help you see what may be slowing the business down.',
       },
       questions: [
         {
           id: 'decision',
           title: 'Decision drag',
           prompt: 'How long does it take for a decision to turn into action?',
-          audit: 'This tests whether the visible issue is execution capacity or a weak decision-to-action path.',
+          audit: 'This checks whether decisions are turning into action quickly enough.',
         },
         {
           id: 'ownership',
           title: 'Ownership drift',
           prompt: 'How often does ownership shift when pressure rises?',
-          audit: 'This checks whether responsibility survives pressure or dissolves into informal rescue.',
+          audit: 'This checks whether people still know who owns the result when pressure rises.',
         },
         {
           id: 'priority',
           title: 'Priority overload',
-          prompt: 'How often do people carry more active priorities than capacity allows?',
-          audit: 'This reveals whether overload is structural and whether too much live work is hiding the real bottleneck.',
+          prompt: 'How often are people carrying more priorities than they can finish well?',
+          audit: 'This checks whether too much active work is hiding the real bottleneck.',
         },
         {
           id: 'fires',
           title: 'Repeat fires',
           prompt: 'How often does the same problem come back again?',
-          audit: 'This confirms whether fixes are repeatable or whether the system is surviving on memory and recovery effort.',
+          audit: 'This checks whether the business is fixing problems once or fighting them again and again.',
         },
         {
           id: 'dependency',
           title: 'Hero dependency',
           prompt: 'How often does progress depend on one person stepping in personally?',
-          audit: 'This surfaces whether continuity is being protected by one operator instead of by stable team design.',
+          audit: 'This checks whether the business depends too much on one person to keep things moving.',
         },
       ],
       profiles: {
         decision: {
           label: 'Decision drag',
-          identityName: 'The Delayed Converter',
-          briefTitle: 'Clarity Mirror Brief',
-          subtitle: 'The Delayed Conversion Pattern',
-          meaning: 'This pattern shows an organization that can discuss, agree, and react, but cannot consistently convert decisions into clean movement. The issue is not effort. The issue is the space between approval and execution.',
-          context: 'Approvals, follow-up loops, and handoffs are carrying too much ambiguity. Teams wait, re-check, and reopen decisions because the operating path is not explicit enough to hold under pace.',
-          observed: 'The visible symptom is delay. The deeper pattern is a weak decision lane where ownership of the next move is not tight enough.',
-          cost: 'This causes slow delivery, duplicate follow-up, and visible drag even when people are aligned on what should happen.',
-          fix: 'Define one owner, one response window, and one standard handoff for the decisions that repeat every week.',
-          warning: 'Do not add more meetings before you simplify the actual path from decision to action.',
-          story: 'In one real operating environment, urgent field needs kept getting solved through workaround after workaround because the formal decision path moved slower than the work on the ground. Service continued, but cost and risk kept rising.',
-          auditSummary: 'Question 1 identifies the visible symptom. Questions 2 and 5 test whether the delay is caused by weak accountability or dependence on informal escalation. Questions 3 and 4 confirm whether the problem is isolated or now shaping the wider operating rhythm.',
+          identityName: 'Slow Decision to Action',
+          briefTitle: 'Clarity Readout',
+          subtitle: 'Decisions are not moving fast enough into action',
+          meaning: 'Your business may be able to discuss and agree, but the work still slows down after the decision is made. The issue is not effort. The issue is the gap between approval and action.',
+          context: 'People wait for follow-up, check again, or reopen things that should already be clear. The next step is not obvious enough.',
+          observed: 'The main sign is delay after decisions are made. The next owner or next move is not clear enough.',
+          cost: 'This creates slow delivery, repeated follow-up, and frustration even when people agree on what needs to happen.',
+          fix: 'Pick one repeated decision. Define the owner, the next step, and the response time before the meeting ends.',
+          warning: 'Do not add more meetings before you make the path from decision to action simpler.',
+          story: 'In many teams, urgent work keeps moving through workarounds because the formal decision path is too slow. The work continues, but the cost and risk keep rising.',
+          auditSummary: 'Your answers show whether decisions move quickly, whether ownership stays clear, and whether the same delay is affecting more than one part of the business.',
         },
         ownership: {
           label: 'Ownership drift',
-          identityName: 'The Shared-Line Operator',
-          briefTitle: 'Clarity Mirror Brief',
-          subtitle: 'The Accountability Drift Pattern',
-          meaning: 'This pattern shows a business where responsibility exists in conversation but not with enough stability to survive pressure. Work moves, but the full path from request to result does not belong clearly to one accountable owner.',
-          context: 'Several people touch the same workflow, especially when urgency rises. The system can describe contribution, but it cannot always name final accountability.',
-          observed: 'The visible symptom is confusion. The deeper pattern is structural drift in how work ownership is defined, held, and escalated.',
-          cost: 'This creates silent gaps, finger-pointing, rework, and weak cost control when something slips.',
-          fix: 'Map the repeat work, assign one accountable owner per workflow, and make exception escalation explicit.',
-          warning: 'Do not keep critical work in a shared zone where everyone contributes but nobody holds the final line.',
-          story: 'In one growth-stage team, logistics, purchasing, and invoicing were spread across overloaded roles. When delivery or cost slipped, no one could clearly trace full accountability from start to finish.',
-          auditSummary: 'Question 2 is the core signal here. Question 1 tests whether ownership weakness is now causing delay. Question 5 checks whether a hero has filled the gap. Questions 3 and 4 show whether the same drift is now multiplying priorities and repeat incidents.',
+          identityName: 'Unclear Ownership',
+          briefTitle: 'Clarity Readout',
+          subtitle: 'People are involved, but ownership is not clear',
+          meaning: 'Your business may have helpful people, but the final owner is not always clear. Work moves, but the full result does not clearly belong to one person.',
+          context: 'Several people touch the same work. When urgency rises, responsibility shifts, and people start asking who is really holding the result.',
+          observed: 'The main sign is ownership moving around under pressure.',
+          cost: 'This creates gaps, repeated work, blame, and weak control when something slips.',
+          fix: 'Choose one repeated workflow. Name one final owner for the result, not just the task.',
+          warning: 'Do not keep important work in a shared zone where everyone helps but nobody owns the final result.',
+          story: 'In many growing teams, delivery, purchasing, and invoicing are spread across busy people. When something slips, nobody can clearly trace ownership from start to finish.',
+          auditSummary: 'Your answers show whether ownership stays clear when pressure rises, and whether unclear ownership is now causing delay or repeat problems.',
         },
         priority: {
           label: 'Priority overload',
-          identityName: 'The Overextended Carrier',
-          briefTitle: 'Clarity Mirror Brief',
-          subtitle: 'The Overloaded Focus Pattern',
-          meaning: 'This pattern shows a team carrying more live work than the operating system can finish cleanly. Activity remains high, but the system cannot simplify enough to produce clean throughput.',
-          context: 'Important work and urgent work are competing in the same lane. People stay busy, but the real bottleneck keeps moving because capacity discipline is weak.',
-          observed: 'The visible symptom is busyness. The deeper pattern is too many active fronts with too little sequencing discipline.',
-          cost: 'This creates partial progress, fatigue, and a misleading sense that execution is moving faster than it really is.',
-          fix: 'Reduce active priorities, separate urgent from strategic work, and cap how much live work any one owner can carry.',
-          warning: 'Do not keep loading urgent asks into a system that is already beyond working capacity.',
-          story: 'In one operating unit, a small leadership layer was carrying supplier follow-up, delivery issues, invoice friction, and customer demands at the same time. Everything moved, but nothing moved cleanly.',
-          auditSummary: 'Question 3 is the main signal. Questions 1 and 4 test whether overload is already producing delay and repeat incidents. Questions 2 and 5 show whether the workload is being held by structure or by informal rescue.',
+          identityName: 'Too Many Priorities',
+          briefTitle: 'Clarity Readout',
+          subtitle: 'The team is carrying more than it can finish well',
+          meaning: 'Your team may be busy every day, but the important work still does not finish cleanly. Too many priorities are open at the same time.',
+          context: 'Urgent work and important work are competing for the same time and people. Everyone looks active, but the real bottleneck keeps moving.',
+          observed: 'The main sign is busyness without clean progress.',
+          cost: 'This creates half-finished work, tired people, and a false feeling that execution is moving faster than it really is.',
+          fix: 'Reduce active priorities. Separate urgent work from important work. Limit how much one owner can carry at once.',
+          warning: 'Do not keep adding urgent work to a team that is already overloaded.',
+          story: 'In many teams, the same leaders carry supplier follow-up, delivery issues, invoices, customer demands, and internal requests at the same time. Everything moves, but nothing moves cleanly.',
+          auditSummary: 'Your answers show whether overload is causing delay, repeat problems, or too much dependence on the same people.',
         },
         fires: {
           label: 'Repeat fires',
-          identityName: 'The Repeat Rescuer',
-          briefTitle: 'Clarity Mirror Brief',
-          subtitle: 'The Rescue Loop Pattern',
-          meaning: 'This pattern shows an organization that knows how to recover, but not yet how to prevent recurrence. The fix still lives in memory, effort, or exception behavior rather than inside a repeatable rule.',
-          context: 'People can resolve the issue when it happens, but the system still cannot stop the same category of issue from returning under the same conditions.',
-          observed: 'The visible symptom is repetition. The deeper pattern is a rescue loop where operational knowledge has not yet been converted into a stable operating mechanism.',
-          cost: 'This burns leadership attention, normalizes chaos, and trains the team to wait for the next rescue instead of strengthening prevention.',
-          fix: 'Choose one repeating issue, document the trigger, owner, decision rule, and prevention step, then review it weekly.',
-          warning: 'Do not mistake strong rescue behavior for proof that the system is working.',
-          story: 'In one field operation, urgent issues kept reappearing because the people closest to the work knew how to solve them, but the system had not yet absorbed that knowledge into a stable process.',
-          auditSummary: 'Question 4 confirms recurrence. Questions 1 and 5 test whether the repeat problem is now slowing decisions or relying on one person to recover it. Questions 2 and 3 check whether drift and overload are helping the same issue reappear.',
+          identityName: 'Problems Keep Coming Back',
+          briefTitle: 'Clarity Readout',
+          subtitle: 'The business fixes problems, but does not prevent them',
+          meaning: 'Your business may be good at recovering, but the same problems still return. The fix depends too much on memory, effort, or someone stepping in again.',
+          context: 'People know how to solve the problem when it appears. But the business has not yet changed the way it works, so the same issue comes back.',
+          observed: 'The main sign is repetition.',
+          cost: 'This burns leadership attention, makes chaos feel normal, and trains the team to wait for the next rescue.',
+          fix: 'Pick one repeated problem. Write down the trigger, the owner, the decision rule, and the prevention step.',
+          warning: 'Do not confuse strong rescue with a strong system.',
+          story: 'In many teams, the people closest to the work know how to fix the problem. But because the fix stays in people instead of the process, the same issue returns.',
+          auditSummary: 'Your answers show whether the same problems keep returning, and whether delay, unclear ownership, or overload are helping them return.',
         },
         dependency: {
           label: 'Hero dependency',
-          identityName: 'The Personal Stabilizer',
-          briefTitle: 'Clarity Mirror Brief',
-          subtitle: 'The Personal Rescue Pattern',
-          meaning: 'This pattern shows a business relying on personal heroics to preserve continuity. The organization still works, but too much of its stability depends on one person stepping in directly.',
-          context: 'A single operator becomes the escalation anchor, client shield, and emergency fixer because the system cannot yet absorb pressure on its own.',
-          observed: 'The visible symptom is reliance on one capable person. The deeper pattern is a weak transfer of authority, boundaries, and team capability.',
-          cost: 'This creates burnout, fragile continuity, and slower capability growth across the wider team.',
-          fix: 'Move one recurring escalation path away from the hero by defining service thresholds, team authority, and a simple boundary script.',
-          warning: 'Do not confuse personal availability with organizational strength.',
-          story: 'In one frontline operation, clients bypassed the normal process and went directly to the person who always fixed the issue. Trust went up, but so did burnout and team dependency.',
-          auditSummary: 'Question 5 is the anchor signal. Questions 2 and 4 reveal whether the dependency is being caused by unstable ownership and repeat incidents. Questions 1 and 3 show whether that same hero role is now masking delay and overload.',
+          identityName: 'One-Person Rescue',
+          briefTitle: 'Clarity Readout',
+          subtitle: 'Too much depends on one person stepping in',
+          meaning: 'Your business may still work, but too much depends on one capable person stepping in personally. That person is holding pressure the system should be able to hold.',
+          context: 'One person becomes the emergency fixer, client shield, and escalation point. People trust them, but the wider team does not grow strong enough.',
+          observed: 'The main sign is reliance on one person.',
+          cost: 'This creates burnout, fragile continuity, and slower growth across the team.',
+          fix: 'Choose one recurring escalation. Define what the team can decide without the hero, and when they must escalate.',
+          warning: 'Do not confuse personal availability with business strength.',
+          story: 'In many teams, clients and staff go straight to the person who always solves the issue. Trust goes up, but so does burnout and dependency.',
+          auditSummary: 'Your answers show whether one person is carrying too much pressure, and whether unclear ownership or repeat problems are feeding that dependency.',
         },
       },
     };
@@ -1153,9 +1153,9 @@
 
     function calculateBand(score) {
       if (score <= 4) return { label: 'Clear', copy: 'Things are mostly clear, but there is still a little friction.' };
-      if (score <= 8) return { label: 'Some risk', copy: 'The business is starting to slow down. Fix a few things now.' };
-      if (score <= 12) return { label: 'High risk', copy: 'Too much confusion is building up. The team needs a simpler way to work.' };
-      return { label: 'Urgent', copy: 'The business is losing too much speed. This needs attention now.' };
+      if (score <= 8) return { label: 'Some risk', copy: 'The business is starting to slow down in places. Fix the small gaps before they become normal.' };
+      if (score <= 12) return { label: 'High risk', copy: 'Too much confusion is building up. The team needs fewer moving parts and clearer ownership.' };
+      return { label: 'Urgent', copy: 'The business is losing too much speed. This needs attention now, before the pressure becomes normal.' };
     }
 
     function getRankedPatterns() {
@@ -1166,15 +1166,15 @@
 
     function getPatternFit(primaryScore, secondaryScore) {
       if (primaryScore === null || primaryScore === undefined) {
-        return 'Pattern fit will appear after you answer all five questions.';
+        return 'Your readout will appear after you answer all five questions.';
       }
       if (primaryScore >= 3 && primaryScore - secondaryScore >= 2) {
-        return 'High fit. One pattern is clearly carrying most of the pressure.';
+        return 'One issue is carrying most of the pressure.';
       }
       if (primaryScore >= 2 && primaryScore - secondaryScore >= 1) {
-        return 'Strong fit. One pattern leads, but another one is reinforcing it.';
+        return 'One issue is leading, but another issue is also adding pressure.';
       }
-      return 'Shared fit. Your answers point to overlapping pressure rather than one isolated issue.';
+      return 'Your answers point to more than one pressure point.';
     }
 
     function formatAnswerSummary() {
@@ -1224,7 +1224,7 @@
         return;
       }
 
-      resultCopyEl.textContent = `${band.copy} Your strongest signal is ${profile.label.toLowerCase()}. ${profile.meaning}`;
+      resultCopyEl.textContent = `${band.copy} The strongest sign is ${profile.label.toLowerCase()}. ${profile.meaning}`;
       buildReport();
     }
 
@@ -1241,16 +1241,16 @@
       reportName.textContent = name;
       reportRole.textContent = title;
       reportLine.textContent = email;
-      reportIdentityNote.innerHTML = `<strong>Core Identity:</strong><span class="report-identity-blur">requires a mirror session</span><span class="report-identity-hint">Identity validation happens inside the Clarity Mirror Session.</span>`;
-      reportMeaning.innerHTML = `<strong>${dominant.label}</strong> is the strongest signal in this reflection. ${dominant.meaning}`;
-      reportContext.innerHTML = `<strong>Operating environment:</strong> ${dominant.context}`;
-      reportObserved.innerHTML = `<strong>Observed pattern:</strong> ${dominant.observed}`;
-      reportCoreHeading.textContent = 'Baseline Pattern Observed (1.0)';
-      reportCost.innerHTML = `<strong>Current cost:</strong> ${dominant.cost}`;
-      reportFix.innerHTML = `<strong>Path forward:</strong> ${dominant.fix}`;
-      reportAudit.innerHTML = `<strong>Question audit:</strong> ${dominant.auditSummary}`;
+      reportIdentityNote.innerHTML = `<strong>Main issue:</strong><span>${dominant.identityName}</span><span class="report-identity-hint">A call can confirm whether this is the real issue or only the visible sign.</span>`;
+      reportMeaning.innerHTML = `<strong>${dominant.label}</strong> is the strongest sign in your answers. ${dominant.meaning}`;
+      reportContext.innerHTML = `<strong>What this feels like:</strong> ${dominant.context}`;
+      reportObserved.innerHTML = `<strong>What stood out:</strong> ${dominant.observed}`;
+      reportCoreHeading.textContent = 'The Main Problem';
+      reportCost.innerHTML = `<strong>What it may be costing you:</strong> ${dominant.cost}`;
+      reportFix.innerHTML = `<strong>First step:</strong> ${dominant.fix}`;
+      reportAudit.innerHTML = `<strong>Why this result appeared:</strong> ${dominant.auditSummary}`;
       reportAnswers.innerHTML = `<strong>Selected answers:</strong> ${formatAnswerSummary()}`;
-      reportStory.innerHTML = `<strong>Validation note:</strong> ${dominant.story}`;
+      reportStory.innerHTML = `<strong>Example:</strong> ${dominant.story}`;
       reportWarning.innerHTML = `<strong>What not to do:</strong> ${dominant.warning}`;
       reportFootnote.textContent = template.footnote;
     }
